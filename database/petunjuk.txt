@@ -1,0 +1,14 @@
+Buatlah 2 tabel:
+1. users untuk login/autentikasi/register
+  - id: int, pk, ai
+  - name: varchar(50), not null
+  - password: varchar(255), not null -> hash via php password_hash
+  - created_at: timestamp -> default current_timestamp
+  - updated_at: timestamp -> default current_timestamp on update current_timestamp
+2. students untuk CRUD data siswa
+  - id: int, pk, ai
+  - name: varchar(50), not null
+  - nim: varchar(10), not null, uk
+  - address: text, null
+  - created_at: timestamp -> default current_timestamp
+  - updated_at: timestamp -> default current_timestamp on update current_timestamp
