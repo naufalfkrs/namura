@@ -1,8 +1,4 @@
 <?php
-// untuk login, register, logout
-// berkaitan dengan views/auth/*.php
-// password saat register menggunakan password_hash
-// password saat login menggunakan password_verify
 class AuthController extends Controller {
   public function login() {
     session_start();
@@ -26,12 +22,7 @@ class AuthController extends Controller {
     $user = $userModel->login($email, $password);
 
     if ($user) {
-      $_SESSION['user'] = [
-        'id' => $user->id,
-        'name' => $user->name,
-        'email' => $user->email,
-        'role' => $user->role
-      ];
+      $_SESSION['user'] = $user['name'];
       header("Location:?c=dashboard&m=index");
     } else {
       $this->loadView(
@@ -46,9 +37,6 @@ class AuthController extends Controller {
   }
 
   public function register() {
-    // todo: menampilkan halaman register
-    // 1. baca session, jika sudah ada session, maka lempar ke dashboard
-    // 2. jika belum, tampilkan halaman register. gunakan layout 'auth'
     session_start();
     if (isset($_SESSION['user'])) {
       header("Location:?c=dashboard&m=index");
@@ -68,28 +56,18 @@ class AuthController extends Controller {
     $userModel = $this->loadModel("user");
     $result = $userModel->register($name, $email, $password);
 
-    if ($result) {
+    if ($result["isSuccess"]) {
       header("Location:?c=auth&m=login");
     } else {
         $this->loadView(
         "auth/register", 
         [
           'title' => $title,
-          'error' => 'email sudah ada'
+          'error' => $result['info']
         ],
         'auth'
       );
     }
-  }
-
-  public function css() {
-    $this->redirect("style");
-  }
-  public function css2() {
-    $this->redirect("style2");
-  }
-  public function image() {
-    $this->image();
   }
 
   public function logout() {

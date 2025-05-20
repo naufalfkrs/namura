@@ -2,7 +2,7 @@
 body {
     font-family: Arial, sans-serif;
     /* background-color: #5c0099; */
-    background: url("<?php echo 'index.php?c=auth&m=image'; ?>") no-repeat center center/cover;
+    background: url('img/bg.avif') no-repeat center center/cover;
     margin: 0;
     padding: 0;
     display: flex;

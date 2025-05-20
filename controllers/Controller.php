@@ -44,28 +44,4 @@
       include_once $layoutPath;
     }
 
-    public function redirect($url) {
-      header("Content-Type: text/css"); // Mengatur header agar browser mengerti ini adalah file CSS
-      include_once "src/$url.css"; // Lokasi file CSS yang sesuai
-      exit(); // Menghentikan eksekusi lebih lanjut setelah mengirim file CSS
-    }
-    
-    public function image() {
-          // Tentukan header untuk gambar (misalnya AVIF)
-      header("Content-Type: image/avif");
-
-      // Path gambar relatif
-      $imagePath = "src/img/bg.avif";
-
-      // Pastikan gambar ada
-      if (file_exists($imagePath)) {
-          // Mengirim gambar ke browser
-          readfile($imagePath); // Membaca dan mengirim gambar ke browser
-      } else {
-          // Jika gambar tidak ditemukan
-          http_response_code(404);
-          echo "Gambar tidak ditemukan.";
-      }
-      exit();
-    }
   }
