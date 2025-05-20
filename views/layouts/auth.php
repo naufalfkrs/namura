@@ -4,12 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= htmlspecialchars($title ?? 'Auth Page') ?></title>
-  <link rel="stylesheet" href="?c=auth&m=css">
+  <link rel="stylesheet" href="src/auth.css">
 </head>
 <body>
-  <main>
-    <?php include $viewFile; ?>
-  </main>
-  
+  <?php include $viewFile; ?>
 </body>
 </html>
