@@ -20,34 +20,4 @@
     </div>
 </section>
 
-
-<script>
-    function toggleDropdown() {
-        var menu = document.getElementById("dropdownMenu");
-        menu.style.display = menu.style.display === "block" ? "none" : "block";
-    }
-
-    document.addEventListener("click", function(event) {
-        var dropdown = document.querySelector(".user-dropdown");
-        var menu = document.getElementById("dropdownMenu");
-
-        if (!dropdown.contains(event.target)) {
-            menu.style.display = "none";
-        }
-    });
-
-    function toggleMenu() {
-        var menu = document.querySelector(".menu");
-        menu.classList.toggle("active");
-
-    }
-
-    window.addEventListener("scroll", function() {
-        var navbar = document.querySelector(".navbar");
-        if (window.scrollY > 50) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
-        }
-    });
-</script>
+<script src="src/js/script.js"></script>
