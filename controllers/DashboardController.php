@@ -15,7 +15,7 @@ class DashboardController extends Controller {
             "dashboard/index",
             [
                 'title' => $title,
-                'username' => $_SESSION['user']
+                'username' => $_SESSION['user']['name']
             ],
             'main'
         );
@@ -29,7 +29,7 @@ class DashboardController extends Controller {
             "dashboard/profile",
             [
                 'title' => $title,
-                'username' => $_SESSION['user']
+                'username' => $_SESSION['user']['name']
             ],
             'main'
         );

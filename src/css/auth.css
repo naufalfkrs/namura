@@ -78,6 +78,12 @@ button:hover {
     text-decoration: underline;
 }
 
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
 /* Media Queries */
 @media (min-width: 576px) {
     .container {
