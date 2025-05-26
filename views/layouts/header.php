@@ -5,8 +5,8 @@
         </div>
 
         <ul class="menu" id="menu">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#bio">About Us</a></li>
+            <li><a href="?c=dashboard&m=index">Home</a></li>
+            <!-- <li><a href="#bio">About Us</a></li> -->
             <!-- <li><a class="logout" href="logout_process.php">Logout</a></li> -->
         </ul>
 
@@ -16,6 +16,7 @@
                 <!-- Panah ke bawah -->
             </div>
             <ul class="dropdown-menu" id="dropdownMenu">
+                <li><a href="?c=dashboard&m=profile">Profile</a></li>
                 <li><a href="?c=auth&m=logout">Logout</a></li>
             </ul>
         </div>  

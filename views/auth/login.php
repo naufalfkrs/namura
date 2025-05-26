@@ -5,7 +5,7 @@
     <?php endif; ?>
     <form action="?c=auth&m=loginProcess" method="post">
         <label for="email-username">Email</label>
-        <input type="text" name="email" id="email-username" placeholder="Masukkan Email" required>
+        <input type="email" name="email" id="email-username" placeholder="Masukkan Email" required>
 
         <label for="password">Password</label>
         <input type="password" name="password" id="password" placeholder="Masukkan Password" required>
