@@ -5,9 +5,12 @@
         </div>
 
         <ul class="menu" id="menu">
-            <li><a href="?c=dashboard&m=index">Home</a></li>
-            <!-- <li><a href="#bio">About Us</a></li> -->
-            <!-- <li><a class="logout" href="logout_process.php">Logout</a></li> -->
+            <?php if($role === "admin") : ?>
+                <li><a href="?c=dashboard&m=indexAdmin">Home1</a></li>
+                <li><a href="?c=dashboard&m=indexAdmin">Home2</a></li>
+            <?php else : ?>
+                <li><a href="?c=dashboard&m=index">Home2</a></li>
+            <?php endif; ?>
         </ul>
 
         <div class="user-dropdown-namura">

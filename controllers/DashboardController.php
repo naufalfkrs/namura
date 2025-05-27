@@ -11,11 +11,32 @@ class DashboardController extends Controller {
     public function index() { 
         $title = 'Dashboard';
 
+        $profileModel = $this->loadModel("user");
+        $result = $profileModel->getById($_SESSION['user']['id']);
+
         $this->loadView(
             "dashboard/index",
             [
                 'title' => $title,
-                'username' => $_SESSION['user']['name']
+                'username' => $result->name,
+                'role' => $result->role,
+            ],
+            'main'
+        );
+    }
+
+    public function indexAdmin() { 
+        $title = 'Dashboard Admin';
+
+        $profileModel = $this->loadModel("user");
+        $result = $profileModel->getById($_SESSION['user']['id']);
+
+        $this->loadView(
+            "dashboard/index",
+            [
+                'title' => $title,
+                'username' => $result->name,
+                'role' => $result->role,
             ],
             'main'
         );

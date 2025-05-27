@@ -28,7 +28,11 @@ class AuthController extends Controller {
                 'email' => $user->email,
                 'role' => $user->role
             ];
-            header("Location:?c=dashboard&m=index");
+            if ($user->role === 'admin') {
+                header("Location:?c=dashboard&m=indexAdmin");
+            } else {
+                header("Location:?c=dashboard&m=index");
+            }
         } else {
             $this->loadView(
                 "auth/login", 
