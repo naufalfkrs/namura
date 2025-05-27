@@ -8,6 +8,7 @@
             <?php if($role === "admin") : ?>
                 <li><a href="?c=dashboard&m=indexAdmin">Home</a></li>
                 <li><a href="?c=user&m=index">Data User</a></li>
+                <li><a href="?c=feedback&m=index">Data Feedback</a></li>
             <?php else : ?>
                 <li><a href="?c=dashboard&m=index">Home</a></li>
             <?php endif; ?>
