@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title><?= htmlspecialchars($title) ?? 'Aplikasi MVC'; ?></title>
-      <link rel="stylesheet" href="?c=auth&m=css2">
-  </head>
-  <body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?= htmlspecialchars($title) ?? 'Aplikasi MVC'; ?></title>
+        <link rel="stylesheet" href="src/css/style2.css">
+    </head>
+    <body>
 
-    <?php include __DIR__ . '/header.php'; ?>
+        <?php include __DIR__ . '/header.php'; ?>
 
-    <main>
-        <?php include $viewFile; ?>
-    </main>
+        <main>
+            <?php include $viewFile; ?>
+        </main>
 
-    <?php include __DIR__ . '/footer.php'; ?>
+        <?php include __DIR__ . '/footer.php'; ?>
 
-  </body>
+    </body>
 </html>
