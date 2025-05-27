@@ -24,14 +24,78 @@ class DashboardController extends Controller {
     public function profile() { 
         $title = 'Profile';
 
-        $this->loadModel("user");
+        $profileModel = $this->loadModel("user");
+        $result = $profileModel->getById($_SESSION['user']['id']);
         $this->loadView(
             "dashboard/profile",
             [
                 'title' => $title,
-                'username' => $_SESSION['user']['name']
+                'username' => $result->name,
+                'profiles' => $result
             ],
             'main'
         );
+    }
+
+    public function editProfile() {
+        $id = $_GET['id'] ?? null;
+
+        if (!$id) {
+            header("Location:?c=dashboard&m=profile");
+            exit;
+        }
+
+        $profileModel = $this->loadModel("user");
+        $result = $profileModel->getById($id);
+
+        if (!$result) {
+            header("Location:?c=dashboard&m=profile");
+            exit;
+        }
+
+        $this->loadView(
+            "dashboard/profile_edit",
+            [
+                'title' => 'Edit Profile',
+                'username' => $result->name,
+                'profiles' => $result
+            ],
+            'main'
+        );
+    }
+
+    public function updateProfile() {
+      $title = 'Edit Profile';
+
+      $id = $_POST['id'] ?? null;
+      $name = $_POST['name'] ?? '';
+      $email = $_POST['email'] ?? '';
+      // die(var_dump($id, $name, $email));
+
+      if (!$id) {
+        header("Location:?c=dashboard&m=profile");
+        exit;
+      }
+
+      $profileModel = $this->loadModel("user");
+      $result = $profileModel->update($id, $name, $email);
+
+      if ($result["isSuccess"]) {
+        header("Location:?c=dashboard&m=profile");
+      } else {
+        $profileModel = $this->loadModel("user");
+        $profiles = $profileModel->getById($id);
+
+        $this->loadView(
+          "dashboard/profile_edit",
+          [
+            'title' => $title,
+            'error' => $result['info'],
+            'username' => $profiles->name,
+            'profiles' => $profiles,
+          ],
+          'main'
+        );
+      }
     }
 }

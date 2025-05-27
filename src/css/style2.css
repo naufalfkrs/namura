@@ -11,9 +11,10 @@ body {
     /* background-color: #5e0ba1; */
     /* background-color: #5c0099; */
     margin: 0px 0 0 0;
+    background: red;
 }
 
-.navbar {
+.navbar-namura {
     display: flex;
     justify-content: right;
     /* justify-content: space-between; */
@@ -31,7 +32,7 @@ body {
     transition: background-color 0.3s ease-in-out, backdrop-filter 0.3s ease-in-out;
 }
 /* Efek smoke transparan saat discroll */
-.navbar.scrolled {
+.navbar-namura.scrolled {
     background-color: rgba(245, 245, 245, 0.4); /* Warna smoke transparan */
     backdrop-filter: blur(15px); /* Blur lebih lembut */
     border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Garis bawah transparan */
@@ -39,23 +40,23 @@ body {
 /* .navbar.scrolled .menu li a{
     color: #393E46;
 } */
-.navbar .logo {
+.navbar-namura .logo {
     position: absolute;
     left: 70px;
 }
-.navbar .logo img{
+.navbar-namura .logo img{
     width: 150px;
 }
-.navbar .menu {
+.navbar-namura .menu {
     display: flex;
     list-style: none;
 }
 
-.navbar .menu li {
+.navbar-namura .menu li {
     /* margin: 10px 30px; */
     margin: 10px 20px;
 }
-.navbar .menu li a {
+.navbar-namura .menu li a {
     color: #393E46;
     text-decoration: none;
     font-size: 16px;
@@ -67,13 +68,13 @@ h4{
     color: #393E46;
 }
 
-.user-dropdown {
+.user-dropdown-namura {
     position: relative;
     display: inline-block;
     cursor: pointer;
 }
 
-.user-info {
+.user-info-namura {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -85,7 +86,7 @@ h4{
     font-size: 12px;
 }
 
-.dropdown-menu {
+.dropdown-menu-namura {
     display: none;
     position: absolute;
     top: 100%;
@@ -99,18 +100,18 @@ h4{
     min-width: 60px;
 }
 
-.dropdown-menu li {
+.dropdown-menu-namura li {
     padding: 10px;
     text-align: center;
 }
 
-.dropdown-menu li a {
+.dropdown-menu-namura li a {
     text-decoration: none;
     color: #393E46;
     display: block;
 }
 
-.dropdown-menu li:hover {
+.dropdown-menu-namura li:hover {
     background: #f0f0f0;
 }
 
@@ -245,7 +246,7 @@ section {
     padding: 0 10px;
 }
 
-.footer {
+.footer-namura {
     background-color:rgb(41, 7, 63);
     color: white;
     padding: 40px 20px;
@@ -253,22 +254,22 @@ section {
     border-top: 4px solid #5c0099;
 }
 
-.footer-logo img{
+.footer-namura-logo img{
     width: 120px;
 }
 
-.footer-logo {
+.footer-namura-logo {
     display: flex;
     align-items: center;
 }
 
-.footer-content {
+.footer-namura-content {
     display: flex;
     justify-content: flex-start; 
     gap: 30px; 
 }
 
-.footer-section.address h2 {
+.footer-namura-section.address h2 {
     margin-bottom: 10px;
     font-size: 1.5em;
     background: linear-gradient(to bottom,rgb(242, 192, 240),rgb(195, 106, 186),  #fdca55,  #fdca55,  #fdca55);
@@ -276,17 +277,17 @@ section {
     -webkit-text-fill-color: transparent;
 }
 
-.footer-section.address p {
+.footer-namura-section.address p {
     margin: 5px 0;
     font-size: 1em;
     color: #ecf0f1;
 }
 
-.footer-section.legal  {
+.footer-namura-section.legal  {
     position: absolute;
     right: 20px;
 }
-.footer-section.legal p {
+.footer-namura-section.legal p {
     margin: 5px 0;
     font-size: 0.9em;
     color: #bdc3c7;
@@ -313,7 +314,7 @@ section {
         height: 100vh;
     }
 
-    .navbar .menu {
+    .navbar-namura .menu {
         display: none;
         flex-direction: column;
         position: absolute;
@@ -327,15 +328,15 @@ section {
         transition: all 0.3s ease-in-out;
     }
 
-    .navbar .menu.active {
+    .navbar-namura .menu.active {
         display: flex; 
     }
 
-    .navbar .menu li {
+    .navbar-namura .menu li {
         margin: 15px 0;
     }
 
-    .navbar .hamburger {
+    .navbar-namura .hamburger {
         display: block;
     }
 

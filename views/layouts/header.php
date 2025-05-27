@@ -1,5 +1,5 @@
 <header>
-    <nav class="navbar">
+    <nav class="navbar-namura">
         <div class="logo">
             <img src="src/img/logonav.png" alt="Foto Profil">
         </div>
@@ -10,12 +10,12 @@
             <!-- <li><a class="logout" href="logout_process.php">Logout</a></li> -->
         </ul>
 
-        <div class="user-dropdown">
-            <div class="user-info" onclick="toggleDropdown()">
+        <div class="user-dropdown-namura">
+            <div class="user-info-namura" onclick="toggleDropdown()">
                 <h4>Hi, <?= htmlspecialchars($username) ?? 'Aplikasi MVC'; ?> <span class="arrow">&#9662;</span></h4>
                 <!-- Panah ke bawah -->
             </div>
-            <ul class="dropdown-menu" id="dropdownMenu">
+            <ul class="dropdown-menu-namura" id="dropdownMenu">
                 <li><a href="?c=dashboard&m=profile">Profile</a></li>
                 <li><a href="?c=auth&m=logout">Logout</a></li>
             </ul>
