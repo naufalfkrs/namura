@@ -4,7 +4,7 @@ function toggleDropdown() {
 }
 
 document.addEventListener("click", function(event) {
-    var dropdown = document.querySelector(".user-dropdown");
+    var dropdown = document.querySelector(".user-dropdown-namura");
     var menu = document.getElementById("dropdownMenu");
 
     if (!dropdown.contains(event.target)) {
@@ -19,7 +19,7 @@ function toggleMenu() {
 }
 
 window.addEventListener("scroll", function() {
-    var navbar = document.querySelector(".navbar");
+    var navbar = document.querySelector(".navbar-namura");
     if (window.scrollY > 50) {
         navbar.classList.add("scrolled");
     } else {

@@ -1,7 +1,9 @@
 <div class="container" id="login-container">
     <h2><?= $title ?></h2>
     <?php if (isset($error)): ?>
-        <div><?= htmlspecialchars($error) ?></div>
+        <div class="error">
+            <?= htmlspecialchars($error) ?>
+        </div>
     <?php endif; ?>
     <form action="?c=auth&m=loginProcess" method="post">
         <label for="email-username">Email</label>

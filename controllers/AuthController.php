@@ -19,17 +19,26 @@ class AuthController extends Controller {
         $password = $_POST['password'] ?? '';
 
         $userModel = $this->loadModel("user");
-        $user = $userModel->login($email, $password);
+        $user = $userModel->login($email);
 
-        if ($user) {
-            $_SESSION['user'] = $user['name'];
-            header("Location:?c=dashboard&m=index");
+        if ($user && password_verify($password, $user->password)) {
+            $_SESSION['user'] = [
+                'id' => $user->user_id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role
+            ];
+            if ($user->role === 'admin') {
+                header("Location:?c=dashboard&m=indexAdmin");
+            } else {
+                header("Location:?c=dashboard&m=index");
+            }
         } else {
             $this->loadView(
                 "auth/login", 
                 [
                     'title' => $title,
-                    'error' => 'Login gagal, cek username/password'
+                    'error' => 'Login gagal, cek email/password'
                 ],
                 'auth'
             );
