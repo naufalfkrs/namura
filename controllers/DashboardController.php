@@ -11,15 +11,17 @@ class DashboardController extends Controller {
     public function index() { 
         $title = 'Dashboard';
 
-        $profileModel = $this->loadModel("user");
-        $result = $profileModel->getById($_SESSION['user']['id']);
+        // $profileModel = $this->loadModel("user");
+        // $result = $profileModel->getById($_SESSION['user']['id']);
 
         $this->loadView(
             "dashboard/index",
             [
                 'title' => $title,
-                'username' => $result->name,
-                'role' => $result->role,
+                // 'username' => $result->name,
+                // 'role' => $result->role,
+                'username' => $_SESSION['user']['name'],
+                'role' => $_SESSION['user']['role'],
             ],
             'main'
         );
@@ -28,15 +30,17 @@ class DashboardController extends Controller {
     public function indexAdmin() { 
         $title = 'Dashboard Admin';
 
-        $profileModel = $this->loadModel("user");
-        $result = $profileModel->getById($_SESSION['user']['id']);
+        // $profileModel = $this->loadModel("user");
+        // $result = $profileModel->getById($_SESSION['user']['id']);
 
         $this->loadView(
             "dashboard/index",
             [
                 'title' => $title,
-                'username' => $result->name,
-                'role' => $result->role,
+                // 'username' => $result->name,
+                // 'role' => $result->role,
+                'username' => $_SESSION['user']['name'],
+                'role' => $_SESSION['user']['role'],
             ],
             'main'
         );
@@ -51,8 +55,12 @@ class DashboardController extends Controller {
             "dashboard/profile",
             [
                 'title' => $title,
-                'username' => $result->name,
-                'profiles' => $result
+                'profiles' => $result,
+                // 'username' => $result->name,
+                // 'role' => $result->role,
+                'username' => $_SESSION['user']['name'],
+                'role' => $_SESSION['user']['role'],
+
             ],
             'main'
         );
@@ -78,45 +86,54 @@ class DashboardController extends Controller {
             "dashboard/profile_edit",
             [
                 'title' => 'Edit Profile',
-                'username' => $result->name,
-                'profiles' => $result
+                'profiles' => $result,
+                'username' => $_SESSION['user']['name'],
+                'role' => $_SESSION['user']['role'],
             ],
             'main'
         );
     }
 
     public function updateProfile() {
-      $title = 'Edit Profile';
+        $title = 'Edit Profile';
 
-      $id = $_POST['id'] ?? null;
-      $name = $_POST['name'] ?? '';
-      $email = $_POST['email'] ?? '';
-      // die(var_dump($id, $name, $email));
+        $id = $_POST['id'] ?? null;
+        $name = $_POST['name'] ?? '';
+        $email = $_POST['email'] ?? '';
+        // die(var_dump($id, $name, $email));
 
-      if (!$id) {
-        header("Location:?c=dashboard&m=profile");
-        exit;
-      }
+        if (!$id) {
+          header("Location:?c=dashboard&m=profile");
+          exit;
+        }
 
-      $profileModel = $this->loadModel("user");
-      $result = $profileModel->update($id, $name, $email);
-
-      if ($result["isSuccess"]) {
-        header("Location:?c=dashboard&m=profile");
-      } else {
         $profileModel = $this->loadModel("user");
-        $profiles = $profileModel->getById($id);
+        $result = $profileModel->update($id, $name, $email);
+        // die(var_dump($result));
 
-        $this->loadView(
-          "dashboard/profile_edit",
-          [
-            'title' => $title,
-            'error' => $result['info'],
-            'username' => $profiles->name,
-            'profiles' => $profiles,
-          ],
-          'main'
-        );
-      }
+        
+        if ($result["isSuccess"]) {
+            $updatedUser = $profileModel->getById($id);
+
+            $_SESSION['user']['name'] = $updatedUser->name;
+            $_SESSION['user']['role'] = $updatedUser->role; 
+
+            header("Location:?c=dashboard&m=profile");
+        } else {
+            $profileModel = $this->loadModel("user");
+            $profiles = $profileModel->getById($id);
+
+            $this->loadView(
+                "dashboard/profile_edit",
+                [
+                    'title' => $title,
+                    'error' => $result['info'],
+                    'profiles' => $profiles,
+                    'username' => $_SESSION['user']['name'],
+                    'role' => $_SESSION['user']['role'],
+                ],
+                'main'
+            );
+        }
     }
 }
