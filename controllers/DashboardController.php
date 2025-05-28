@@ -13,6 +13,8 @@ class DashboardController extends Controller {
 
         // $profileModel = $this->loadModel("user");
         // $result = $profileModel->getById($_SESSION['user']['id']);
+        $eventModel = $this->loadModel("event");
+        $events = $eventModel->getAllEvents();
 
         $this->loadView(
             "dashboard/index",
@@ -22,6 +24,7 @@ class DashboardController extends Controller {
                 // 'role' => $result->role,
                 'username' => $_SESSION['user']['name'],
                 'role' => $_SESSION['user']['role'],
+                'events' => $events
             ],
             'main'
         );

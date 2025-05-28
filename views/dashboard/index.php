@@ -20,3 +20,30 @@
     </div>
 </section>
 
+<section class="dashboard-events-wrapper">
+    <div class="dashboard-events">
+        <h2 class="event-section-title">Daftar Event Terbaru</h2>
+
+        <?php if (!empty($events)): ?>
+            <div class="event-card-grid">
+                <?php foreach ($events as $event): ?>
+                    <div class="event-card">
+                        <h3 class="event-title"><?= htmlspecialchars($event['title']) ?></h3>
+                        <p><span class="label">📍 Lokasi:</span> <?= htmlspecialchars($event['location']) ?></p>
+                        <p><span class="label">📅 Tanggal Mulai:</span> <?= $event['start_date'] ?></p>
+                        <p><span class="label">📅 Tanggal Selesai:</span> <?= $event['end_date'] ?></p>
+                        <?php if (!empty($event['description'])): ?>
+                            <p>
+                                <span class="label">📝 Deskripsi:</span>
+                                <?= nl2br(htmlspecialchars(substr($event['description'], 0, 50))) ?>...
+                            </p>
+                        <?php endif; ?>
+                        <a href="?c=event&m=detail&id=<?= $event['event_id'] ?>" class="btn-detail">Selengkapnya</a>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p style="text-align:center;">Belum ada event yang tersedia.</p>
+        <?php endif; ?>
+    </div>
+</section>
