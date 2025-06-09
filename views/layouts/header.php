@@ -5,7 +5,7 @@
         </div>
 
         <ul class="menu" id="menu">
-            <?php if($role === "admin") : ?>
+            <?php if($role === "admin" || $role === "superadmin") : ?>
                 <li><a href="?c=dashboard&m=indexAdmin">Home</a></li>
                 <li><a href="?c=user&m=index">Data User</a></li>
                 <li><a href="?c=event&m=index">Manajemen Event</a></li>

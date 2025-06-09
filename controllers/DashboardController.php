@@ -31,6 +31,10 @@ class DashboardController extends Controller {
     }
 
     public function indexAdmin() { 
+        if ($_SESSION['user']['role'] !== 'admin' && $_SESSION['user']['role'] !== 'superadmin') {
+            header("Location:?c=dashboard&m=index");
+            exit();
+        }
         $title = 'Dashboard Admin';
 
         // $profileModel = $this->loadModel("user");

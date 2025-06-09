@@ -1,7 +1,7 @@
 <div class="d-flex vh-100">
     <!-- Kolom kiri: foto profil -->
     <div class="w-50 overflow-hidden d-none d-lg-block">
-      <img src="src/img/bg.avif" alt="Profile Photo" class="h-100 w-100 object-fit-cover" />
+        <img src="src/img/bg.avif" alt="Profile Photo" class="h-100 w-100 object-fit-cover" />
     </div>
 
     <!-- Kolom kanan: konten -->

@@ -3,6 +3,11 @@
         <h2 class="mb-4 text-center"><?= htmlspecialchars($title) ?></h2>
 
         <a href="?c=user&m=createUser" class="btn btn-success mb-3">Daftar di sini</a>
+        <?php if (isset($error)): ?>
+            <div class="alert alert-danger" role="alert">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
 
         <div class="table-responsive">
             <table class="table table-striped table-bordered align-middle">
@@ -25,12 +30,23 @@
                                 <td><?= htmlspecialchars($user->email) ?></td>
                                 <td><?= htmlspecialchars($user->role) ?></td>
                                 <td>
-                                    <a href="?c=user&m=editUser&id=<?= $user->user_id ?>" class="btn btn-sm btn-primary me-2">Edit</a>
-                                    <a href="?c=user&m=deleteUser&id=<?= $user->user_id ?>"
-                                        class="btn btn-sm btn-danger"
-                                        onclick="return confirm('Yakin ingin menghapus user ini?')">
-                                        Delete
-                                    </a>
+                                    <?php if ($role === "superadmin") : ?>
+                                        <a href="?c=user&m=editUser&id=<?= $user->user_id ?>" class="btn btn-sm btn-primary me-2">Edit</a>
+                                        <a href="?c=user&m=deleteUser&id=<?= $user->user_id ?>"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Yakin ingin menghapus user ini?')">
+                                            Delete
+                                        </a>
+                                    <?php elseif ($user->role === "superadmin") : ?>
+                                        -
+                                    <?php else : ?>
+                                        <a href="?c=user&m=editUser&id=<?= $user->user_id ?>" class="btn btn-sm btn-primary me-2">Edit</a>
+                                        <a href="?c=user&m=deleteUser&id=<?= $user->user_id ?>"
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Yakin ingin menghapus user ini?')">
+                                            Delete
+                                        </a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endwhile; ?>

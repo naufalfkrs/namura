@@ -11,7 +11,7 @@ class FeedbackController extends Controller
             exit();
         }
 
-        if ($_SESSION['user']['role'] !== 'admin') {
+        if ($_SESSION['user']['role'] !== 'admin' && $_SESSION['user']['role'] !== 'superadmin') {
             header("Location:?c=dashboard&m=index");
             exit();
         }

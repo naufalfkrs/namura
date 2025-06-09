@@ -28,7 +28,7 @@ class AuthController extends Controller {
                 'email' => $user->email,
                 'role' => $user->role
             ];
-            if ($user->role === 'admin') {
+            if ($user->role === 'admin' || $user->role === 'superadmin') {
                 header("Location:?c=dashboard&m=indexAdmin");
             } else {
                 header("Location:?c=dashboard&m=index");
