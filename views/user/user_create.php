@@ -1,20 +1,50 @@
-<h2><?= $title ?></h2>
-<?php if (isset($error)): ?>
-  <div><?= htmlspecialchars($error) ?></div>
-<?php endif; ?>
+<div class="d-flex flex-column justify-content-center align-items-center vh-100 px-3">
+    <div class="w-100" style="max-width: 500px; margin-top: 10px;">
+        <a href="?c=user&m=index" class="btn btn-secondary btn-sm">
+            Kembali
+        </a>
+    </div>
+    <div class="w-100 border rounded p-4 shadow" style="max-width: 500px; background-color: #fff;">
+        <h2 class="mb-4 text-center"><?= htmlspecialchars($title) ?></h2>
 
-<form action="?c=dashboard&m=insertStudent" method="post">
-  <div>
-    <label for="name">Name</label><br>
-    <input type="text" name="name" id="name" required>
-  </div><br>
-  <div>
-    <label for="nim">Nim</label><br>
-    <input type="text" name="nim" id="nim" required>
-  </div><br>
-  <div>
-    <label for="address">Address</label><br>
-    <input type="text" name="address" id="address" required>
-  </div><br>
-  <button type="submit">Save</button>
-</form>
+        <?php if (isset($error)): ?>
+            <div class="alert alert-danger" role="alert">
+                <?= htmlspecialchars($error) ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="?c=user&m=insertStudent" method="post">
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" name="name" id="name" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" name="password" id="password" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select name="role" id="role" class="form-control" required>
+                    <option value="">-- Pilih Role --</option>
+                    <?php if ($role === "superadmin") : ?>
+                        <option value="superadmin">Superadmin</option>
+                    <?php endif; ?>
+                    <option value="admin">Admin</option>
+                    <option value="panitia">Panitia</option>
+                    <option value="peserta">Peserta</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                Save
+            </button>
+        </form>
+    </div>
+</div>
