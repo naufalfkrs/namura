@@ -8,7 +8,7 @@
                 <tr>
                     <th>Judul</th>
                     <th>Lokasi</th>
-                    <th>Tanggal</th>
+                    <th>Tanggal gabisa</th>
                     <th>Aksi</th>
                 </tr>
             </thead>

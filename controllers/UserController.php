@@ -21,8 +21,15 @@ class UserController extends Controller
     {
         $title = 'User Account';
 
+        $limit = 10;
+
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $offset = ($page - 1) * $limit;
+
         $userModel = $this->loadModel("user");
-        $result = $userModel->getAll();
+        $result = $userModel->getAll($limit, $offset);
+        $totalUsers = $userModel->getTotalUsers();
+        $totalPages = ceil($totalUsers / $limit);
 
         $this->loadView(
             "user/index",
@@ -31,6 +38,8 @@ class UserController extends Controller
                 'users' => $result,
                 'username' => $_SESSION['user']['name'],
                 'role' => $_SESSION['user']['role'],
+                'currentPage' => $page,
+                'totalPages' => $totalPages,
             ],
             'main'
         );
@@ -90,7 +99,6 @@ class UserController extends Controller
 
         if ($_SESSION['user']['role'] !== 'superadmin') {
             if ($result->role === 'superadmin') {
-                $userModel = $this->loadModel("user");
                 $result1 = $userModel->getAll();
                 $this->loadView(
                     "user/index",
@@ -107,7 +115,6 @@ class UserController extends Controller
         }
 
         if (!$result) {
-            $userModel = $this->loadModel("user");
             $result2 = $userModel->getAll();
             $this->loadView(
                 "user/index",
@@ -150,21 +157,26 @@ class UserController extends Controller
         }
 
         $userModel = $this->loadModel("user");
-        $result = $userModel->updateUser($id, $name, $email, $role);
+        if (!empty($password)) {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        } else {
+            $user = $userModel->getById($id);
+            $hashedPassword = $user->password;
+        }
+        $result = $userModel->updateUser($id, $name, $email, $hashedPassword, $role);
 
         if ($result["isSuccess"]) {
             $updatedUser = $userModel->getById($id);
             if($_SESSION['user']['id'] == $id) {
                 $_SESSION['user']['name'] = $updatedUser->name;
                 $_SESSION['user']['role'] = $updatedUser->role; 
-                header("Location:?c=user&m=index");
             }
+            header("Location:?c=user&m=index");
         } else {
-            $userModel = $this->loadModel("user");
             $users = $userModel->getById($id);
 
             $this->loadView(
-                "dashboard/profile_edit",
+                "user/user_edit",
                 [
                     'title' => $title,
                     'error' => $result['info'],

@@ -37,11 +37,21 @@ class User extends Model
         return $result;
     }
 
-    public function getAll() {
-        $stmt = $this->dbconn->prepare("SELECT * FROM users");
+    public function getAll($limit = 10, $offset = 0) {
+        $stmt = $this->dbconn->prepare("SELECT * FROM users LIMIT ? OFFSET ?");
+        $stmt->bind_param("ii", $limit, $offset);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result;
+    }
+
+    public function getTotalUsers() {
+        // Query untuk menghitung total jumlah pengguna
+        $stmt = $this->dbconn->prepare("SELECT COUNT(*) FROM users");
+        $stmt->execute();
+        $stmt->bind_result($totalUsers);
+        $stmt->fetch();
+        return $totalUsers;
     }
 
     public function getById($id) {
@@ -99,9 +109,9 @@ class User extends Model
         return $result;
     }
 
-    public function updateUser($id, $name, $email, $role) {
-        $stmt = $this->dbconn->prepare("UPDATE users SET name = ?, email = ?, role = ? WHERE user_id = ?");
-        $stmt->bind_param("sssi", $name, $email, $role, $id);
+    public function updateUser($id, $name, $email, $password, $role) {
+        $stmt = $this->dbconn->prepare("UPDATE users SET name = ?, email = ?, password = ?, role = ? WHERE user_id = ?");
+        $stmt->bind_param("ssssi", $name, $email, $password, $role, $id);
         try {
             $stmt->execute();
             $result = array("isSuccess" => true);
