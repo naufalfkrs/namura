@@ -1,8 +1,14 @@
 <?php
 class UserController extends Controller
 {
+    protected $userModel;
     protected $username;
     protected $role;
+    protected $currentPage;
+    protected $totalPages;
+    protected $limit = 10;
+    protected $offset;
+
     public function __construct()
     {
         session_start();
@@ -11,35 +17,37 @@ class UserController extends Controller
             exit();
         }
 
-        if ($_SESSION['user']['role'] !== 'admin' && $_SESSION['user']['role'] !== 'superadmin') {
+        $this->userModel = $this->loadModel("user");
+        $this->username = $_SESSION['user']['name'];
+        $this->role = $_SESSION['user']['role'];
+
+        if ($this->role !== 'admin' && $this->role !== 'superadmin') {
             header("Location:?c=dashboard&m=index");
             exit();
         }
+
+        $this->currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $this->offset = ($this->currentPage - 1) * $this->limit;
+
+        $totalUsers = $this->userModel->getTotalUsers();
+        $this->totalPages = ceil($totalUsers / $this->limit);
     }
 
     public function index()
     {
         $title = 'User Account';
 
-        $limit = 10;
-
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $offset = ($page - 1) * $limit;
-
-        $userModel = $this->loadModel("user");
-        $result = $userModel->getAll($limit, $offset);
-        $totalUsers = $userModel->getTotalUsers();
-        $totalPages = ceil($totalUsers / $limit);
+        $result = $this->userModel->getAll($this->limit, $this->offset);
 
         $this->loadView(
             "user/index",
             [
                 'title' => $title,
                 'users' => $result,
-                'username' => $_SESSION['user']['name'],
-                'role' => $_SESSION['user']['role'],
-                'currentPage' => $page,
-                'totalPages' => $totalPages,
+                'username' => $this->username,
+                'role' => $this->role,
+                'currentPage' => $this->currentPage,
+                'totalPages' => $this->totalPages,
             ],
             'main'
         );
@@ -51,8 +59,8 @@ class UserController extends Controller
             "user/user_create",
             [
                 'title' => 'Create User',
-                'username' => $_SESSION['user']['name'],
-                'role' => $_SESSION['user']['role'],
+                'username' => $this->username,
+                'role' => $this->role,
             ],
             'main'
         );
@@ -66,8 +74,7 @@ class UserController extends Controller
         $password = $_POST['password'] ?? '';
         $role = $_POST['role'] ?? '';
 
-        $userModel = $this->loadModel("user");
-        $result = $userModel->createUser($name, $email, $password, $role);
+        $result = $this->userModel->createUser($name, $email, $password, $role);
 
         if ($result["isSuccess"]) {
             header("Location:?c=user&m=index");
@@ -77,8 +84,8 @@ class UserController extends Controller
                 [
                     'title' => $title,
                     'error' => $result['info'],
-                    'username' => $_SESSION['user']['name'],
-                    'role' => $_SESSION['user']['role'],
+                    'username' => $this->username,
+                    'role' => $this->role,
                 ],
                 'main'
             );
@@ -94,20 +101,21 @@ class UserController extends Controller
             exit;
         }
 
-        $userModel = $this->loadModel("user");
-        $result = $userModel->getById($id);
+        $result = $this->userModel->getById($id);
 
-        if ($_SESSION['user']['role'] !== 'superadmin') {
+        if ($this->role !== 'superadmin') {
             if ($result->role === 'superadmin') {
-                $result1 = $userModel->getAll();
+                $result1 = $this->userModel->getAll();
                 $this->loadView(
                     "user/index",
                     [
                         'title' => 'User Account',
                         'users' => $result1,
-                        'error' => 'Tidak dapat akses mengedit user dengan role superadmin',
-                        'username' => $_SESSION['user']['name'],
-                        'role' => $_SESSION['user']['role'],
+                        'error' => 'Tidak dapat mengedit user dengan role superadmin',
+                        'username' => $this->username,
+                        'role' => $this->role,
+                        'currentPage' => $this->currentPage,
+                        'totalPages' => $this->totalPages,
                     ],
                     'main'
                 );
@@ -115,15 +123,17 @@ class UserController extends Controller
         }
 
         if (!$result) {
-            $result2 = $userModel->getAll();
+            $result2 = $this->userModel->getAll();
             $this->loadView(
                 "user/index",
                 [
                     'title' => 'User Account',
                     'users' => $result2,
                     'error' => "Tidak ada user dengan ID " . $id,
-                    'username' => $_SESSION['user']['name'],
-                    'role' => $_SESSION['user']['role'],
+                    'username' => $this->username,
+                    'role' => $this->role,
+                    'currentPage' => $this->currentPage,
+                    'totalPages' => $this->totalPages,
                 ],
                 'main'
             );
@@ -134,8 +144,8 @@ class UserController extends Controller
             [
                 'title' => 'Edit User',
                 'users' => $result,
-                'username' => $_SESSION['user']['name'],
-                'role' => $_SESSION['user']['role'],
+                'username' => $this->username,
+                'role' => $this->role,
             ],
             'main'
         );
@@ -149,31 +159,29 @@ class UserController extends Controller
         $name = $_POST['name'] ?? '';
         $email = $_POST['email'] ?? '';
         $role = $_POST['role'] ?? '';
-        // die(var_dump($id, $name, $email));
 
         if (!$id) {
             header("Location:?c=user&m=index");
             exit;
         }
 
-        $userModel = $this->loadModel("user");
         if (!empty($password)) {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
         } else {
-            $user = $userModel->getById($id);
+            $user = $this->userModel->getById($id);
             $hashedPassword = $user->password;
         }
-        $result = $userModel->updateUser($id, $name, $email, $hashedPassword, $role);
+        $result = $this->userModel->updateUser($id, $name, $email, $hashedPassword, $role);
 
         if ($result["isSuccess"]) {
-            $updatedUser = $userModel->getById($id);
+            $updatedUser = $this->userModel->getById($id);
             if($_SESSION['user']['id'] == $id) {
-                $_SESSION['user']['name'] = $updatedUser->name;
-                $_SESSION['user']['role'] = $updatedUser->role; 
+                $this->username = $updatedUser->name;
+                $this->role = $updatedUser->role; 
             }
             header("Location:?c=user&m=index");
         } else {
-            $users = $userModel->getById($id);
+            $users = $this->userModel->getById($id);
 
             $this->loadView(
                 "user/user_edit",
@@ -181,8 +189,8 @@ class UserController extends Controller
                     'title' => $title,
                     'error' => $result['info'],
                     'users' => $users,
-                    'username' => $_SESSION['user']['name'],
-                    'role' => $_SESSION['user']['role'],
+                    'username' => $this->username,
+                    'role' => $this->role,
                 ],
                 'main'
             );
@@ -198,8 +206,7 @@ class UserController extends Controller
             exit;
         }
 
-        $userModel = $this->loadModel("user");
-        $result = $userModel->deleteUser($id);
+        $result = $this->userModel->deleteUser($id);
 
         if ($result["isSuccess"]) {
             header("Location:?c=user&m=index");
@@ -209,8 +216,10 @@ class UserController extends Controller
                 [
                     'title' => 'User Account',
                     'error' => $result['info'],
-                    'username' => $_SESSION['user']['name'],
-                    'role' => $_SESSION['user']['role'],
+                    'username' => $this->username,
+                    'role' => $this->role,
+                    'currentPage' => $this->currentPage,
+                    'totalPages' => $this->totalPages,
                 ],
                 'main'
             );
