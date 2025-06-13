@@ -33,9 +33,6 @@
                 <label for="role" class="form-label">Role</label>
                 <select name="role" id="role" class="form-control" required>
                     <option value="">-- Pilih Role --</option>
-                    <?php if ($role === "superadmin") : ?>
-                        <option value="superadmin">Superadmin</option>
-                    <?php endif; ?>
                     <option value="admin">Admin</option>
                     <option value="panitia">Panitia</option>
                     <option value="peserta">Peserta</option>

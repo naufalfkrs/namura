@@ -13,10 +13,10 @@ class User extends Model {
         }
     }
 
-    public function register($user, $email, $pass) {
+    public function register($user, $email, $pass, $role = 'peserta') {
         $hashPass = password_hash($pass, PASSWORD_DEFAULT);
-        $stmt = $this->dbconn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $user, $email, $hashPass);
+        $stmt = $this->dbconn->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $user, $email, $hashPass, $role);
         try {
             $stmt->execute();
             $result = array("isSuccess" => true);
@@ -66,26 +66,6 @@ class User extends Model {
         $stmt = $this->dbconn->prepare("UPDATE users SET name = ?, email = ?, foto = ? WHERE user_id = ?");
         $stmt->bind_param("sssi", $name, $email, $fotoPath, $id);
 
-        try {
-            $stmt->execute();
-            $result = array("isSuccess" => true);
-        } catch (mysqli_sql_exception $e) {
-            $code = $e->getCode();
-            if ($code == 1062) {
-                $result = array("isSuccess" => false, "info" => "Duplikasi pada email");
-            } elseif ($code == 1064) {
-                $result = array("isSuccess" => false, "info" => "Kesalahan sintaks SQL");
-            } else {
-                $result = array("isSuccess" => false, "info" => "Error lainnya: " . $e->getMessage());
-            }
-        }
-        return $result;
-    }
-
-    public function createUser($user, $email, $pass, $role) {
-        $hashPass = password_hash($pass, PASSWORD_DEFAULT);
-        $stmt = $this->dbconn->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("ssss", $user, $email, $hashPass, $role);
         try {
             $stmt->execute();
             $result = array("isSuccess" => true);

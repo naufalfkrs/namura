@@ -30,20 +30,15 @@
                                 <td><?= htmlspecialchars($user->email) ?></td>
                                 <td><?= htmlspecialchars($user->role) ?></td>
                                 <td class="text-center">
-                                    <?php if ($role === "superadmin") : ?>
-                                        <a href="?c=user&m=editUser&id=<?= $user->user_id ?>" class="btn btn-sm btn-outline-primary me-2"><i class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="?c=user&m=deleteUser&id=<?= $user->user_id ?>"
-                                            class="btn btn-sm btn-outline-danger me-2"
-                                            onclick="return confirm('Yakin ingin menghapus user ini?')">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </a>
-                                    <?php elseif ($user->role === "superadmin") : ?>
+                                    <?php if ($role !== 'superadmin' && ($user->role === 'admin' || $user->role === 'superadmin')) : ?>
                                         -
+                                    <?php elseif ($role === "superadmin" && $user->role === "superadmin") : ?>
+                                        <a href="?c=user&m=editUser&id=<?= $user->user_id ?>" class="btn btn-sm btn-outline-primary me-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                     <?php else : ?>
                                         <a href="?c=user&m=editUser&id=<?= $user->user_id ?>" class="btn btn-sm btn-outline-primary me-2"><i class="fa-solid fa-pen-to-square"></i></a>
                                         <a href="?c=user&m=deleteUser&id=<?= $user->user_id ?>"
-                                            class="btn btn-sm btn-outline-danger me-2"
-                                            onclick="return confirm('Yakin ingin menghapus user ini?')">
+                                        class="btn btn-sm btn-outline-danger me-2"
+                                        onclick="return confirm('Yakin ingin menghapus user ini?')">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                     <?php endif; ?>

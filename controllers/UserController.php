@@ -1,9 +1,7 @@
 <?php
-class UserController extends Controller
-{
+class UserController extends Controller {
     protected $userModel;
-    public function __construct()
-    {
+    public function __construct() {
         $this->init();
         $this->check();
         $this->paginate('user');
@@ -11,8 +9,7 @@ class UserController extends Controller
 
     }
 
-    public function index()
-    {
+    public function index() {
         $title = 'User Account';
 
         $result = $this->userModel->getAll($this->limit, $this->offset);
@@ -28,8 +25,7 @@ class UserController extends Controller
         );
     }
 
-    public function createUser()
-    {
+    public function createUser() {
         $this->loadView(
             "user/user_create",
             [
@@ -47,7 +43,7 @@ class UserController extends Controller
         $password = $_POST['password'] ?? '';
         $role = $_POST['role'] ?? '';
 
-        $result = $this->userModel->createUser($name, $email, $password, $role);
+        $result = $this->userModel->register($name, $email, $password, $role);
 
         if ($result["isSuccess"]) {
             header("Location:?c=user&m=index");
@@ -63,8 +59,7 @@ class UserController extends Controller
         }
     }
 
-    public function editUser()
-    {
+    public function editUser() {
         $id = $_GET['id'] ?? null;
 
         if (!$id) {
@@ -74,20 +69,18 @@ class UserController extends Controller
 
         $result = $this->userModel->getById($id);
 
-        if ($this->role !== 'superadmin') {
-            if ($result->role === 'superadmin') {
-                $result1 = $this->userModel->getAll();
-                $this->loadView(
-                    "user/index",
-                    [
-                        'title' => 'User Account',
-                        'users' => $result1,
-                        'error' => 'Tidak dapat mengedit user dengan role superadmin',
-                    ],
-                    'main',
-                    'user'
-                );
-            }
+        if ($this->role !== 'superadmin' && ($result->role === 'superadmin' || $result->role === 'admin')) {
+            $result1 = $this->userModel->getAll();
+            $this->loadView(
+                "user/index",
+                [
+                    'title' => 'User Account',
+                    'users' => $result1,
+                    'error' => 'Tidak dapat mengedit user dengan role ' . $result->role,
+                ],
+                'main',
+                'user'
+            );
         }
 
         if (!$result) {
@@ -114,8 +107,7 @@ class UserController extends Controller
         );
     }
 
-    public function updateUser()
-    {
+    public function updateUser() {
         $title = 'Edit user';
 
         $id = $_POST['id'] ?? null;
@@ -139,8 +131,8 @@ class UserController extends Controller
         if ($result["isSuccess"]) {
             $updatedUser = $this->userModel->getById($id);
             if($this->id == $id) {
-                $this->username = $updatedUser->name;
-                $this->role = $updatedUser->role; 
+                $_SESSION['user']['username'] = $updatedUser->name;
+                $_SESSION['user']['role'] = $updatedUser->role; 
             }
             header("Location:?c=user&m=index");
         } else {
@@ -158,13 +150,27 @@ class UserController extends Controller
         }
     }
 
-    public function deleteUser()
-    {
+    public function deleteUser() {
         $id = $_GET['id'] ?? null;
 
         if (!$id) {
             header("Location:?c=user&m=index");
             exit;
+        }
+
+        $get = $this->userModel->getById($id);
+        if ($get->role === 'superadmin' || $get->role === 'admin') {
+            $result1 = $this->userModel->getAll();
+            $this->loadView(
+                "user/index",
+                [
+                    'title' => 'User Account',
+                    'users' => $result1,
+                    'error' => 'Tidak dapat menghapus user dengan role ' . $get->role,
+                ],
+                'main',
+                'user'
+            );
         }
 
         $result = $this->userModel->deleteUser($id);

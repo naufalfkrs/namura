@@ -30,18 +30,22 @@
                 <input type="password" name="password" id="password" class="form-control" placeholder="Kosongkan jika tidak ingin mengubah password">
             </div>
 
-            <div class="mb-3">
-                <label for="role" class="form-label">Role</label>
-                <select name="role" id="role" class="form-control" required>
+            <?php if ($role === "superadmin" && $users->role === "superadmin") : ?>
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Role</label>
+                        <input type="text" name="role" id="role" class="form-control" value="<?= htmlspecialchars($users->role) ?>" readonly>
+                    </div>
+            <?php else : ?>
+                <div class="mb-3">
+                    <label for="role" class="form-label">Role</label>
+                    <select name="role" id="role" class="form-control" required>
                     <option value="">-- Pilih Role --</option>
-                    <?php if ($role === "superadmin") : ?>
-                        <option value="superadmin" <?= $users->role === 'superadmin' ? 'selected' : '' ?>>Superadmin</option>
-                    <?php endif; ?>
-                    <option value="admin" <?= $users->role === 'admin' ? 'selected' : '' ?>>Admin</option>
-                    <option value="panitia" <?= $users->role === 'panitia' ? 'selected' : '' ?>>Panitia</option>
-                    <option value="peserta" <?= $users->role === 'peserta' ? 'selected' : '' ?>>Peserta</option>
-                </select>
-            </div>
+                        <option value="admin" <?= $users->role === 'admin' ? 'selected' : '' ?>>Admin</option>
+                        <option value="panitia" <?= $users->role === 'panitia' ? 'selected' : '' ?>>Panitia</option>
+                        <option value="peserta" <?= $users->role === 'peserta' ? 'selected' : '' ?>>Peserta</option>
+                    </select>
+                </div>
+            <?php endif; ?>
 
             <button type="submit" class="btn btn-warning w-100">
                 Save
