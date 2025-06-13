@@ -1,11 +1,11 @@
-<div class="d-flex flex-column justify-content-center align-items-center vh-100 px-3">
-    <div class="w-100" style="max-width: 500px; margin-top: 10px;">
-        <a href="?c=user&m=index" class="btn btn-secondary btn-sm">
-            Kembali
+<div class="d-flex flex-column justify-content-start align-items-center px-3" style="min-height: 100vh; margin-bottom: 50px;">
+    <div class="w-100" style="max-width: 650px; margin-top: 50px;">
+        <a href="?c=user&m=index" class="mt-4 btn btn-outline-warning btn-lg">
+            <i class="fas fa-arrow-left"></i>
         </a>
     </div>
-    <div class="w-100 border rounded p-4 shadow" style="max-width: 500px; background-color: #fff;">
-        <h2 class="mb-4 text-center"><?= htmlspecialchars($title) ?></h2>
+    <div class="mt-4 w-100 border rounded p-4 shadow" style="max-width: 650px; background-color: #fff;">
+        <h2 class="mb-4 text-center" style="color: #5c0099;"><?= htmlspecialchars($title) ?></h2>
 
         <?php if (isset($error)): ?>
             <div class="alert alert-danger" role="alert">
@@ -33,16 +33,13 @@
                 <label for="role" class="form-label">Role</label>
                 <select name="role" id="role" class="form-control" required>
                     <option value="">-- Pilih Role --</option>
-                    <?php if ($role === "superadmin") : ?>
-                        <option value="superadmin">Superadmin</option>
-                    <?php endif; ?>
                     <option value="admin">Admin</option>
                     <option value="panitia">Panitia</option>
                     <option value="peserta">Peserta</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn btn-primary w-100">
+            <button type="submit" class="btn btn-warning w-100">
                 Save
             </button>
         </form>

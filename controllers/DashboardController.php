@@ -1,53 +1,38 @@
 <?php
 class DashboardController extends Controller {
+    protected $userModel;
+    protected $eventModel;
+    protected $events;
+
     public function __construct() {
-        session_start();
-        if (!isset($_SESSION['user'])) {
-            header("Location:?c=auth&m=login");
-            exit();
-        }
+        $this->init();
+        $this->userModel = $this->loadModel("user");
+        $this->eventModel = $this->loadModel("event");
+        $this->events = $this->eventModel->getAllEvents();
     }
     
     public function index() { 
         $title = 'Dashboard';
 
-        // $profileModel = $this->loadModel("user");
-        // $result = $profileModel->getById($_SESSION['user']['id']);
-        $eventModel = $this->loadModel("event");
-        $events = $eventModel->getAllEvents();
-
         $this->loadView(
             "dashboard/index",
             [
                 'title' => $title,
-                // 'username' => $result->name,
-                // 'role' => $result->role,
-                'username' => $_SESSION['user']['name'],
-                'role' => $_SESSION['user']['role'],
-                'events' => $events
+                'events' => $this->events,
             ],
             'main'
         );
     }
 
     public function indexAdmin() { 
-        if ($_SESSION['user']['role'] !== 'admin' && $_SESSION['user']['role'] !== 'superadmin') {
-            header("Location:?c=dashboard&m=index");
-            exit();
-        }
+        $this->check();
         $title = 'Dashboard Admin';
-
-        // $profileModel = $this->loadModel("user");
-        // $result = $profileModel->getById($_SESSION['user']['id']);
 
         $this->loadView(
             "dashboard/index",
             [
                 'title' => $title,
-                // 'username' => $result->name,
-                // 'role' => $result->role,
-                'username' => $_SESSION['user']['name'],
-                'role' => $_SESSION['user']['role'],
+                'events' => $this->events,
             ],
             'main'
         );
@@ -56,18 +41,12 @@ class DashboardController extends Controller {
     public function profile() { 
         $title = 'Profile';
 
-        $profileModel = $this->loadModel("user");
-        $result = $profileModel->getById($_SESSION['user']['id']);
+        $result = $this->userModel->getById($this->id);
         $this->loadView(
             "dashboard/profile",
             [
                 'title' => $title,
                 'profiles' => $result,
-                // 'username' => $result->name,
-                // 'role' => $result->role,
-                'username' => $_SESSION['user']['name'],
-                'role' => $_SESSION['user']['role'],
-
             ],
             'main'
         );
@@ -81,8 +60,7 @@ class DashboardController extends Controller {
             exit;
         }
 
-        $profileModel = $this->loadModel("user");
-        $result = $profileModel->getById($id);
+        $result = $this->userModel->getById($id);
 
         if (!$result) {
             header("Location:?c=dashboard&m=profile");
@@ -94,8 +72,6 @@ class DashboardController extends Controller {
             [
                 'title' => 'Edit Profile',
                 'profiles' => $result,
-                'username' => $_SESSION['user']['name'],
-                'role' => $_SESSION['user']['role'],
             ],
             'main'
         );
@@ -107,28 +83,71 @@ class DashboardController extends Controller {
         $id = $_POST['id'] ?? null;
         $name = $_POST['name'] ?? '';
         $email = $_POST['email'] ?? '';
-        // die(var_dump($id, $name, $email));
+        $foto = $_FILES['foto'] ?? null;
 
         if (!$id) {
-          header("Location:?c=dashboard&m=profile");
-          exit;
+            header("Location:?c=dashboard&m=profile");
+            exit;
         }
 
-        $profileModel = $this->loadModel("user");
-        $result = $profileModel->update($id, $name, $email);
-        // die(var_dump($result));
+        $getdata = $this->userModel->getById($id);
 
+        // Jika foto ada
+        if ($foto && $foto['error'] === UPLOAD_ERR_OK) {
+            $allowedMimeTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!in_array($foto['type'], $allowedMimeTypes)) {
+                $error = "Only JPEG, PNG, and GIF images are allowed.";
+                $this->loadView(
+                    "dashboard/profile_edit",
+                    [
+                        'title' => $title,
+                        'error' => $error,
+                        'profiles' => $this->userModel->getById($id),
+                    ],
+                    'main'
+                );
+                return;
+            }
+
+            if (file_exists($getdata->foto)) {
+                unlink($getdata->foto);
+            }
+
+            $uploadDir = 'src/photo/';
+            $fileName = $id . "_" . basename($foto['name']);
+            $uploadPath = $uploadDir . $fileName;
+
+            if (move_uploaded_file($foto['tmp_name'], $uploadPath)) {
+                // Jika berhasil update beserta foto
+                $result = $this->userModel->update($id, $name, $email, $uploadPath);
+            } else {
+                $error = "There was an error uploading your photo.";
+                $this->loadView(
+                    "dashboard/profile_edit",
+                    [
+                        'title' => $title,
+                        'error' => $error,
+                        'profiles' => $this->userModel->getById($id),
+                    ],
+                    'main'
+                );
+                return;
+            }
+        } else {
+            // Jika tidak update foto
+            $uploadPath = $getdata->foto;
+            $result = $this->userModel->update($id, $name, $email, $uploadPath);
+        }
         
         if ($result["isSuccess"]) {
-            $updatedUser = $profileModel->getById($id);
+            $updatedUser = $this->userModel->getById($id);
 
             $_SESSION['user']['name'] = $updatedUser->name;
-            $_SESSION['user']['role'] = $updatedUser->role; 
+            $_SESSION['user']['foto'] = $updatedUser->foto;
 
             header("Location:?c=dashboard&m=profile");
         } else {
-            $profileModel = $this->loadModel("user");
-            $profiles = $profileModel->getById($id);
+            $profiles = $this->userModel->getById($id);
 
             $this->loadView(
                 "dashboard/profile_edit",
@@ -136,8 +155,6 @@ class DashboardController extends Controller {
                     'title' => $title,
                     'error' => $result['info'],
                     'profiles' => $profiles,
-                    'username' => $_SESSION['user']['name'],
-                    'role' => $_SESSION['user']['role'],
                 ],
                 'main'
             );

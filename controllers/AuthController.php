@@ -26,7 +26,8 @@ class AuthController extends Controller {
                 'id' => $user->user_id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'role' => $user->role
+                'role' => $user->role,
+                'foto' => $user->foto
             ];
             if ($user->role === 'admin' || $user->role === 'superadmin') {
                 header("Location:?c=dashboard&m=indexAdmin");

@@ -15,9 +15,10 @@
             <?php endif; ?>
         </ul>
 
+        
         <div class="user-dropdown-namura">
             <div class="user-info-namura" onclick="toggleDropdown()">
-                <h4>Hi, <?= htmlspecialchars($username) ?? 'Aplikasi MVC'; ?> <span class="arrow">&#9662;</span></h4>
+                <h4><?= htmlspecialchars($username) ?? 'Aplikasi MVC'; ?><span class="arrow">&#9662;</span> <img src="<?= !empty($foto) ? htmlspecialchars($foto  ) : 'src/img/profile.png' ?>" alt="Profile Photo" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;"></h4>
                 <!-- Panah ke bawah -->
             </div>
             <ul class="dropdown-menu-namura" id="dropdownMenu">

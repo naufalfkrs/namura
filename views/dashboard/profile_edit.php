@@ -10,14 +10,14 @@
 
         <div class="bg-white shadow-lg rounded p-4 w-100" style="min-width:300px; max-width:600px;">
             <div class="d-flex justify-content-center mb-4">
-                <img src="src/img/profile.png" alt="Profile Photo" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                <img src="<?= !empty($profiles->foto) ? htmlspecialchars($profiles->foto) : 'src/img/profile.png' ?>" alt="Profile Photo" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
             </div>
             <?php if (isset($error)): ?>
                 <div class="alert alert-danger" role="alert">
                     <?= htmlspecialchars($error) ?>
                 </div>
             <?php endif; ?>
-            <form action="?c=dashboard&m=updateProfile" method="post">
+            <form enctype="multipart/form-data" action="?c=dashboard&m=updateProfile" method="post">
                 <input type="hidden" name="id" value="<?= htmlspecialchars($profiles->user_id) ?>">
 
                 <div class="mb-3">
@@ -40,6 +40,15 @@
                         value="<?= htmlspecialchars($profiles->email) ?>"
                         class="form-control"
                         required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Upload Foto</label>
+                    <input
+                        type="file"
+                        name="foto"
+                        id="foto"
+                        class="form-control">
                 </div>
 
                 <button type="submit" class="btn btn-warning w-100">Save</button>
