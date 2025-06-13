@@ -1,9 +1,6 @@
 <?php
-class User extends Model
-{
-    private $lastErrorCode;
-    public function login($email)
-    {
+class User extends Model {
+    public function login($email) {
         $stmt = $this->dbconn->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -16,8 +13,7 @@ class User extends Model
         }
     }
 
-    public function register($user, $email, $pass)
-    {
+    public function register($user, $email, $pass) {
         $hashPass = password_hash($pass, PASSWORD_DEFAULT);
         $stmt = $this->dbconn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
         $stmt->bind_param("sss", $user, $email, $hashPass);
@@ -25,14 +21,14 @@ class User extends Model
             $stmt->execute();
             $result = array("isSuccess" => true);
         } catch (mysqli_sql_exception $e) {
-        $code = $e->getCode();
-        if ($code == 1062) {
-            $result = array("isSuccess" => false, "info" => "Duplikasi pada email");
-        } elseif ($code == 1064) {
-            $result = array("isSuccess" => false, "info" => "Kesalahan sintaks SQL");
-        } else {
-            $result = array("isSuccess" => false, "info" => "Error lainnya: " . $e->getMessage());
-        }
+            $code = $e->getCode();
+            if ($code == 1062) {
+                $result = array("isSuccess" => false, "info" => "Duplikasi pada email");
+            } elseif ($code == 1064) {
+                $result = array("isSuccess" => false, "info" => "Kesalahan sintaks SQL");
+            } else {
+                $result = array("isSuccess" => false, "info" => "Error lainnya: " . $e->getMessage());
+            }
         }
         return $result;
     }
@@ -66,8 +62,27 @@ class User extends Model
         }
     }
 
-    public function createUser($user, $email, $pass, $role)
-    {
+    public function update($id, $name, $email, $fotoPath) {
+        $stmt = $this->dbconn->prepare("UPDATE users SET name = ?, email = ?, foto = ? WHERE user_id = ?");
+        $stmt->bind_param("sssi", $name, $email, $fotoPath, $id);
+
+        try {
+            $stmt->execute();
+            $result = array("isSuccess" => true);
+        } catch (mysqli_sql_exception $e) {
+            $code = $e->getCode();
+            if ($code == 1062) {
+                $result = array("isSuccess" => false, "info" => "Duplikasi pada email");
+            } elseif ($code == 1064) {
+                $result = array("isSuccess" => false, "info" => "Kesalahan sintaks SQL");
+            } else {
+                $result = array("isSuccess" => false, "info" => "Error lainnya: " . $e->getMessage());
+            }
+        }
+        return $result;
+    }
+
+    public function createUser($user, $email, $pass, $role) {
         $hashPass = password_hash($pass, PASSWORD_DEFAULT);
         $stmt = $this->dbconn->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $user, $email, $hashPass, $role);
@@ -75,36 +90,14 @@ class User extends Model
             $stmt->execute();
             $result = array("isSuccess" => true);
         } catch (mysqli_sql_exception $e) {
-        $code = $e->getCode();
-        if ($code == 1062) {
-            $result = array("isSuccess" => false, "info" => "Duplikasi pada email");
-        } elseif ($code == 1064) {
-            $result = array("isSuccess" => false, "info" => "Kesalahan sintaks SQL");
-        } else {
-            $result = array("isSuccess" => false, "info" => "Error lainnya: " . $e->getMessage());
-        }
-        }
-        return $result;
-    }
-
-    public function update($id, $name, $email) {
-        $stmt = $this->dbconn->prepare("UPDATE users SET name = ?, email = ? WHERE user_id = ?");
-        $stmt->bind_param("ssi", $name, $email, $id);
-        try {
-            $stmt->execute();
-            $result = array("isSuccess" => true);
-        } catch (mysqli_sql_exception $e) {
-        $code = $e->getCode();
-        if ($code == 1062) {
-            $result = array("isSuccess" => false, "info" => "Duplikasi pada Email");
-            $this->lastErrorCode = $code;
-        } elseif ($code == 1064) {
-            $result = array("isSuccess" => false, "info" => "Kesalahan sintaks SQL");
-            $this->lastErrorCode = $code;
-        } else {
-            $result = array("isSuccess" => false, "info" => "Error lainnya: " . $e->getMessage());
-            $this->lastErrorCode = $code;
-        }
+            $code = $e->getCode();
+            if ($code == 1062) {
+                $result = array("isSuccess" => false, "info" => "Duplikasi pada email");
+            } elseif ($code == 1064) {
+                $result = array("isSuccess" => false, "info" => "Kesalahan sintaks SQL");
+            } else {
+                $result = array("isSuccess" => false, "info" => "Error lainnya: " . $e->getMessage());
+            }
         }
         return $result;
     }
@@ -116,17 +109,14 @@ class User extends Model
             $stmt->execute();
             $result = array("isSuccess" => true);
         } catch (mysqli_sql_exception $e) {
-        $code = $e->getCode();
-        if ($code == 1062) {
-            $result = array("isSuccess" => false, "info" => "Duplikasi pada Email");
-            $this->lastErrorCode = $code;
-        } elseif ($code == 1064) {
-            $result = array("isSuccess" => false, "info" => "Kesalahan sintaks SQL");
-            $this->lastErrorCode = $code;
-        } else {
-            $result = array("isSuccess" => false, "info" => "Error lainnya: " . $e->getMessage());
-            $this->lastErrorCode = $code;
-        }
+            $code = $e->getCode();
+            if ($code == 1062) {
+                $result = array("isSuccess" => false, "info" => "Duplikasi pada email");
+            } elseif ($code == 1064) {
+                $result = array("isSuccess" => false, "info" => "Kesalahan sintaks SQL");
+            } else {
+                $result = array("isSuccess" => false, "info" => "Error lainnya: " . $e->getMessage());
+            }
         }
         return $result;
     }

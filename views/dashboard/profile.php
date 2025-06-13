@@ -10,7 +10,7 @@
 
         <div class="bg-white shadow-lg rounded p-4 w-100" style="min-width:300px; max-width:600px;">
             <div class="d-flex justify-content-center mb-4">
-                <img src="src/img/profile.png" alt="Profile Photo" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                <img src="<?= !empty($profiles->foto) ? htmlspecialchars($profiles->foto) : 'src/img/profile.png' ?>" alt="Profile Photo" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
             </div>
             <ul class="list-unstyled mb-0">
             <li><strong>Name :</strong> <?= htmlspecialchars($profiles->name) ?></li><br>
@@ -26,4 +26,4 @@
         </div>
 
     </div>
-  </div>
+</div>

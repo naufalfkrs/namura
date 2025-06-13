@@ -2,35 +2,13 @@
 class UserController extends Controller
 {
     protected $userModel;
-    protected $username;
-    protected $role;
-    protected $currentPage;
-    protected $totalPages;
-    protected $limit = 10;
-    protected $offset;
-
     public function __construct()
     {
-        session_start();
-        if (!isset($_SESSION['user'])) {
-            header("Location:?c=auth&m=login");
-            exit();
-        }
-
+        $this->init();
+        $this->check();
+        $this->paginate('user');
         $this->userModel = $this->loadModel("user");
-        $this->username = $_SESSION['user']['name'];
-        $this->role = $_SESSION['user']['role'];
 
-        if ($this->role !== 'admin' && $this->role !== 'superadmin') {
-            header("Location:?c=dashboard&m=index");
-            exit();
-        }
-
-        $this->currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $this->offset = ($this->currentPage - 1) * $this->limit;
-
-        $totalUsers = $this->userModel->getTotalUsers();
-        $this->totalPages = ceil($totalUsers / $this->limit);
     }
 
     public function index()
@@ -44,12 +22,9 @@ class UserController extends Controller
             [
                 'title' => $title,
                 'users' => $result,
-                'username' => $this->username,
-                'role' => $this->role,
-                'currentPage' => $this->currentPage,
-                'totalPages' => $this->totalPages,
             ],
-            'main'
+            'main',
+            'user'
         );
     }
 
@@ -59,8 +34,6 @@ class UserController extends Controller
             "user/user_create",
             [
                 'title' => 'Create User',
-                'username' => $this->username,
-                'role' => $this->role,
             ],
             'main'
         );
@@ -84,8 +57,6 @@ class UserController extends Controller
                 [
                     'title' => $title,
                     'error' => $result['info'],
-                    'username' => $this->username,
-                    'role' => $this->role,
                 ],
                 'main'
             );
@@ -112,12 +83,9 @@ class UserController extends Controller
                         'title' => 'User Account',
                         'users' => $result1,
                         'error' => 'Tidak dapat mengedit user dengan role superadmin',
-                        'username' => $this->username,
-                        'role' => $this->role,
-                        'currentPage' => $this->currentPage,
-                        'totalPages' => $this->totalPages,
                     ],
-                    'main'
+                    'main',
+                    'user'
                 );
             }
         }
@@ -130,12 +98,9 @@ class UserController extends Controller
                     'title' => 'User Account',
                     'users' => $result2,
                     'error' => "Tidak ada user dengan ID " . $id,
-                    'username' => $this->username,
-                    'role' => $this->role,
-                    'currentPage' => $this->currentPage,
-                    'totalPages' => $this->totalPages,
                 ],
-                'main'
+                'main',
+                'user'
             );
         }
 
@@ -144,8 +109,6 @@ class UserController extends Controller
             [
                 'title' => 'Edit User',
                 'users' => $result,
-                'username' => $this->username,
-                'role' => $this->role,
             ],
             'main'
         );
@@ -175,7 +138,7 @@ class UserController extends Controller
 
         if ($result["isSuccess"]) {
             $updatedUser = $this->userModel->getById($id);
-            if($_SESSION['user']['id'] == $id) {
+            if($this->id == $id) {
                 $this->username = $updatedUser->name;
                 $this->role = $updatedUser->role; 
             }
@@ -189,8 +152,6 @@ class UserController extends Controller
                     'title' => $title,
                     'error' => $result['info'],
                     'users' => $users,
-                    'username' => $this->username,
-                    'role' => $this->role,
                 ],
                 'main'
             );
@@ -216,12 +177,9 @@ class UserController extends Controller
                 [
                     'title' => 'User Account',
                     'error' => $result['info'],
-                    'username' => $this->username,
-                    'role' => $this->role,
-                    'currentPage' => $this->currentPage,
-                    'totalPages' => $this->totalPages,
                 ],
-                'main'
+                'main',
+                'user'
             );
         }
     }
