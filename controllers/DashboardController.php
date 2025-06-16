@@ -8,19 +8,16 @@ class DashboardController extends Controller {
         $this->init();
         $this->userModel = $this->loadModel("user");
         $this->eventModel = $this->loadModel("event");
-        $this->events = $this->eventModel->getAllEvents();
+        $this->events = $this->eventModel->getLatestEvents(3);
     }
     
-    public function index() { 
-        $title = 'Dashboard';
-
+    public function index() {
         $this->loadView(
-            "dashboard/index",
-            [
-                'title' => $title,
-                'events' => $this->events,
-            ],
-            'main'
+            "dashboard/index", [
+                'title' => 'Dashboard',
+                'events' => $this->events
+            ], 
+            "main"
         );
     }
 

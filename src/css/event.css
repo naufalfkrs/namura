@@ -1,52 +1,73 @@
-/* ===== Manajemen Event Styles ===== */
-.event-detail {
-  margin-top: 80px; /* Atau padding-top */
+/* ===== Global Font Settings ===== */
+/* Mengatur font utama seluruh halaman */
+body {
+  font-family: 'Poppins', sans-serif; /* Font default: Poppins */
+  font-size: 16px; /* Ukuran teks dasar */
+  line-height: 1.6; /* Jarak antar baris */
+  color: #333333; /* Warna teks utama */
+  background-color: #f9f9f9; /* Warna latar belakang */
+  margin: 0;
+  padding: 0;
 }
 
-/* Container halaman manajemen event */
+/* ===== Container dan Tampilan Halaman Event ===== */
+.event-detail {
+  margin-top: 40px; /* Jarak atas */
+  padding: 40px; /* Padding isi */
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  box-sizing: border-box; /* Termasuk padding & border dalam width/height */
+}
+
+/* Container utama event */
 .event-container {
   width: 100%;
   max-width: 1200px;
-  margin: 80px auto;
-  padding: 20px 40px;
+  margin: 40px auto;
+  padding: 20px;
   background-color: #ffffff;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  overflow-x: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Efek bayangan */
+  overflow-x: auto; /* Scroll horizontal jika diperlukan */
 }
 
-/* Judul halaman */
+/* Judul section */
 .event-container h2,
 .event-section-title {
   text-align: center;
   margin-bottom: 20px;
   font-size: 24px;
-  color: #5c0099;
+  color: #6a0dad; /* Ungu */
 }
 
-/* Tabel event */
+/* ===== Tabel Event ===== */
 .event-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 }
 
+/* Style kolom dan baris tabel */
 .event-table th,
 .event-table td {
   border: 1px solid #ccc;
   padding: 12px 20px;
-  text-align: left;
+  text-align: center;
   font-size: 15px;
 }
 
+/* Warna latar header tabel */
 .event-table th {
-  background-color: #f7f7f7;
-  color: #393e46;
+  background-color: #ffd9ff;
+  color: #6a0dad;
 }
 
+/* Link di dalam tabel */
 .event-table a {
   text-decoration: none;
-  color: #5c0099;
+  color: #6a0dad;
   font-weight: bold;
 }
 
@@ -54,43 +75,49 @@
   text-decoration: underline;
 }
 
-/* Form Tambah/Edit Event */
+/* ===== Form Tambah/Edit Event ===== */
 .event-form-section {
   display: flex;
   justify-content: center;
-  margin: 100px 0 40px;
+  margin: 40px 0;
 }
 
+/* Container form */
 .event-form-container {
   width: 100%;
   max-width: 600px;
   background-color: #ffffff;
   padding: 30px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 10px rgba(224, 221, 221, 0.05);
 }
 
+/* Lebar form lebih besar */
 .event-form-container.wide {
   max-width: 900px;
 }
 
+/* Judul form */
 .event-form-container h2 {
   text-align: center;
   margin-bottom: 25px;
-  color: #5c0099;
+  color: #6a0dad;
 }
 
+/* Setiap group input di form */
 .event-form .form-group {
   margin-bottom: 15px;
 }
 
+/* Label input */
 .event-form label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #333;
+  color: #6a0dad;
 }
 
+/* Input dan textarea */
 .event-form input,
 .event-form textarea {
   width: 100%;
@@ -100,11 +127,12 @@
   font-size: 15px;
 }
 
+/* Tombol submit */
 .btn-submit {
   display: block;
   width: 100%;
   padding: 12px;
-  background-color: #fdca55;
+  background-color: #ffd700;
   color: #333;
   border: none;
   border-radius: 5px;
@@ -114,10 +142,10 @@
 }
 
 .btn-submit:hover {
-  background-color: #f0b700;
+  background-color: #e5be00;
 }
 
-/* Grid Event di Dashboard */
+/* ===== Kartu Event (Grid di dashboard) ===== */
 .dashboard-events-wrapper {
   width: 100%;
 }
@@ -129,6 +157,7 @@
   padding: 0 30px;
 }
 
+/* Grid layout untuk kartu event */
 .event-card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -136,13 +165,14 @@
   justify-content: start;
 }
 
+/* Style setiap kartu event */
 .event-card {
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 20px;
   transition: transform 0.2s;
-  border-left: 5px solid #5c0099;
+  border-left: 5px solid #6a0dad;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -157,7 +187,7 @@
 .event-card h3,
 .event-card .event-title {
   margin-top: 0;
-  color: #5c0099;
+  color: #6a0dad;
   font-size: 18px;
   margin-bottom: 10px;
 }
@@ -171,17 +201,17 @@
 
 .event-card .label {
   font-weight: bold;
-  color: #5c0099;
+  color: #6a0dad;
   display: inline-block;
   min-width: 130px;
 }
 
-/* Tombol Selengkapnya */
+/* ===== Tombol Selengkapnya ===== */
 .btn-detail {
   margin-top: auto;
   display: inline-block;
   padding: 8px 14px;
-  background-color: #fdca55;
+  background-color: #ffd700;
   color: #333;
   text-align: center;
   text-decoration: none;
@@ -191,10 +221,10 @@
 }
 
 .btn-detail:hover {
-  background-color: #f0b700;
+  background-color: #e5be00;
 }
 
-/* Responsive */
+/* ===== Responsive untuk Mobile ===== */
 @media (max-width: 768px) {
   .event-container {
     padding: 20px;
@@ -205,35 +235,26 @@
     padding: 10px;
     font-size: 14px;
   }
+
+  .event-card {
+    padding: 15px;
+  }
 }
 
-/* Detail Event Styles */
-/* Detail Event Styles */
-.event-detail {
-  padding-top: 100px;
-  padding-bottom: 60px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start; /* ✅ Tambahan penting */
-  padding-left: 40px;
-  padding-right: 40px;
-  width: 100%;
-  box-sizing: border-box;
-}
-
+/* ===== Detail Event Box ===== */
 .event-detail-box {
   width: 100%;
   max-width: 800px;
-  background-color: #ffffff;
+  background-color: #e2cdf1;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
-  margin: 0 auto; /* ✅ Supaya tetap rapi dan tidak terlalu ke kiri mentok */
+  margin: 0 auto;
 }
 
 .event-detail-box h2 {
-  color: #5c0099;
+  color: #6a0dad;
   margin-bottom: 20px;
   font-size: 26px;
 }
@@ -242,29 +263,92 @@
   font-size: 16px;
   margin: 10px 0;
   line-height: 1.6;
-  color: #333;
+  color: #333333;
 }
 
 .event-detail-box .label {
   font-weight: bold;
-  color: #5c0099;
+  color: #6a0dad;
   display: inline-block;
   min-width: 140px;
+  margin-right: 5px;
 }
 
-.btn-detail {
-  margin-top: 20px;
+/* ===== Tombol Kembali & Tambah Event ===== */
+.btn-back,
+.btn-add-event {
   display: inline-block;
-  padding: 10px 16px;
-  background-color: #fdca55;
+  margin-top: 15px;
+  padding: 12px;
+  background-color: #ffd700;
   color: #333;
-  text-align: center;
-  text-decoration: none;
   font-weight: bold;
   border-radius: 5px;
-  transition: background-color 0.2s;
+  text-decoration: none;
+  font-size: 16px;
 }
 
-.btn-detail:hover {
-  background-color: #f0b700;
+.btn-back:hover,
+.btn-add-event:hover {
+  background-color: #e5be00;
+  color: #000;
+}
+
+/* ===== Modal Detail Event ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+/* Tombol X di modal */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #c0392b;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+/* Saat modal dibuka, body tidak bisa discroll */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* ===== Warna Font Ungu Khusus ===== */
+.font-purple {
+  color: #6a0dad;
+}
+
+.font-purple h3,
+.font-purple p,
+.font-purple strong {
+  color: #6a0dad !important;
 }

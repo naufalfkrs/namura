@@ -12,6 +12,7 @@
                 <li><a href="?c=feedback&m=index">Data Feedback</a></li>
             <?php else : ?>
                 <li><a href="?c=dashboard&m=index">Home</a></li>
+                <li><a href="?c=event&m=list">Event</a></li>
             <?php endif; ?>
         </ul>
 
