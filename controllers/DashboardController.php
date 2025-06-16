@@ -114,7 +114,7 @@ class DashboardController extends Controller {
             }
 
             $uploadDir = 'src/photo/';
-            $fileName = $id . "_" . basename($foto['name']);
+            $fileName = $id . "_t" . date('Ymd') . "_" . basename($foto['name']);
             $uploadPath = $uploadDir . $fileName;
 
             if (move_uploaded_file($foto['tmp_name'], $uploadPath)) {
