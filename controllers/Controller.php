@@ -91,8 +91,13 @@ class Controller {
         $this->currentPage = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $this->offset = ($this->currentPage - 1) * $this->limit;
 
-        $totalUsers = $this->model->getTotalUsers();
-        $this->totalPages = ceil($totalUsers / $this->limit);
+        if ($model === 'user') {
+            $totalUsers = $this->model->getTotalUsers();
+            $this->totalPages = ceil($totalUsers / $this->limit);
+        } else if ($model === 'feedback') {
+            $totalFeedbacks = $this->model->getTotalFeedbacks();
+            $this->totalPages = ceil($totalFeedbacks / $this->limit);
+        } 
 
     }
 
