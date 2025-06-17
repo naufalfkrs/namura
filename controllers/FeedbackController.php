@@ -1,94 +1,71 @@
 <?php
-class FeedbackController extends Controller
-{
-    protected $username;
-    protected $role;
-    public function __construct()
-    {
-        session_start();
-        if (!isset($_SESSION['user'])) {
-            header("Location:?c=auth&m=login");
-            exit();
-        }
+class FeedbackController extends Controller {
+    protected $feedbackModel;
 
-        if ($_SESSION['user']['role'] !== 'admin' && $_SESSION['user']['role'] !== 'superadmin') {
-            header("Location:?c=dashboard&m=index");
-            exit();
-        }
+    public function __construct() {
+        $this->init();
+        $this->paginate('feedback');
+        $this->feedbackModel = $this->loadModel("feedback");
     }
 
-    public function index()
-    {
+    public function index() {
+        $this->check();
         $title = 'Feedback User';
 
-        $model = $this->loadModel("feedback");
-        $result = $model->getAll();
-        // die(var_dump($result));
-
+        $result = $this->feedbackModel->getAll();
 
         $this->loadView(
-            "feedback/index",
-            [
+            "feedback/index", [
                 'title' => $title,
                 'results' => $result,
-                'username' => $_SESSION['user']['name'],
-                'role' => $_SESSION['user']['role'],
             ],
-            'main'
+            'main',
+            'feedback'
         );
     }
 
-    public function createFeedback()
-    {
-        $eventModel = $this->loadModel("feedback");  // nanti diganti ya nawa
-        $result = $eventModel->getEvent();
-        // die(var_dump($result));
+    public function createFeedback() {
+        $this->check();
+        $result = $this->feedbackModel->getEvent();
 
         $this->loadView(
-            "feedback/feedback_create",
-            [
+            "feedback/feedback_create", [
                 'title' => 'Add Feedback',
-                'username' => $_SESSION['user']['name'],
-                'role' => $_SESSION['user']['role'],
                 'events' => $result,
             ],
             'main'
         );
     }
 
-    public function insertFeedback()
-    {
+    public function insertFeedback() {
+        $this->check();
         $title = 'Add Feedback';
         $user_id = $_SESSION['user']['id'] ?? '';
         $event_id = $_POST['event_id'] ?? '';
         $rating = $_POST['rating'] ?? '';
         $comment = $_POST['comment'] ?? '';
 
-        $model = $this->loadModel("feedback");
-        $result = $model->createFeedback($user_id, $event_id, $rating, $comment);
+        $result =  $this->feedbackModel->createFeedback($user_id, $event_id, $rating, $comment);
 
         if ($result["isSuccess"]) {
             header("Location:?c=feedback&m=index");
         } else {
-            $eventModel = $this->loadModel("feedback");  // nanti diganti ya nawa
-            $results = $eventModel->getEvent();
+            $results = $this->feedbackModel->getEvent();
 
             $this->loadView(
-                "feedback/feedback_create",
-                [
+                "feedback/feedback_create", [
                     'title' => $title,
                     'error' => $result['info'],
                     'events' => $results,
-                    'username' => $_SESSION['user']['name'],
-                    'role' => $_SESSION['user']['role'],
                 ],
-                'main'
+                'main',
+                'feedback'
             );
         }
     }
 
-    public function editFeedback()
-    {
+    public function editFeedback() {
+        $this->check();
         $id = $_GET['id'] ?? null;
 
         if (!$id) {
@@ -96,32 +73,27 @@ class FeedbackController extends Controller
             exit;
         }
 
-        $model = $this->loadModel("feedback");
-        $result = $model->getById($id);
+        $result = $this->feedbackModel->getById($id);
 
         if (!$result) {
             header("Location:?c=feedback&m=index");
             exit;
         }
 
-        $eventModel = $this->loadModel("feedback");  // nanti diganti ya nawa
-        $results = $eventModel->getEvent();
+        $results = $this->feedbackModel->getEvent();
 
         $this->loadView(
-            "feedback/feedback_edit",
-            [
+            "feedback/feedback_edit", [
                 'title' => 'Edit Feedback',
                 'results' => $result,
                 'events' => $results,
-                'username' => $_SESSION['user']['name'],
-                'role' => $_SESSION['user']['role'],
             ],
             'main'
         );
     }
 
-    public function updateFeedback()
-    {
+    public function updateFeedback() {
+        $this->check();
         $title = 'Edit Feedback';
 
         $id = $_POST['id'] ?? null;
@@ -129,41 +101,33 @@ class FeedbackController extends Controller
         $event_id = $_POST['event_id'] ?? '';
         $rating = $_POST['rating'] ?? '';
         $comment = $_POST['comment'] ?? '';
-        // die(var_dump($id));
 
         if (!$id) {
             header("Location:?c=feedback&m=index");
             exit;
         }
 
-        $model = $this->loadModel("feedback");
-        $result = $model->updateFeedback($id, $user_id, $event_id, $rating, $comment);
+        $result = $this->feedbackModel->updateFeedback($id, $user_id, $event_id, $rating, $comment);
 
         if ($result["isSuccess"]) {
             header("Location:?c=feedback&m=index");
         } else {
-            $model = $this->loadModel("feedback");
-            $results = $model->getById($id);
-            // die(var_dump($results));
-            $events = $model->getEvent();
+            $results = $this->feedbackModel->getById($id);
+            $events = $this->feedbackModel->getEvent();
 
             $this->loadView(
-                "feedback/feedback_edit",
-                [
+                "feedback/feedback_edit", [
                     'title' => $title,
                     'error' => $result['info'],
                     'results' => $results,
                     'events' => $events,
-                    'username' => $_SESSION['user']['name'],
-                    'role' => $_SESSION['user']['role'],
                 ],
                 'main'
             );
         }
     }
 
-    public function deleteFeedback()
-    {
+    public function deleteFeedback() {
         $id = $_GET['id'] ?? null;
 
         if (!$id) {
@@ -171,21 +135,18 @@ class FeedbackController extends Controller
             exit;
         }
 
-        $model = $this->loadModel("feedback");
-        $result = $model->deleteFeedback($id);
+        $result = $this->feedbackModel->deleteFeedback($id);
 
         if ($result["isSuccess"]) {
             header("Location:?c=feedback&m=index");
         } else {
             $this->loadView(
-                "feedback/index",
-                [
+                "feedback/index", [
                     'title' => 'Feedback User',
                     'error' => $result['info'],
-                    'username' => $_SESSION['user']['name'],
-                    'role' => $_SESSION['user']['role'],
                 ],
-                'main'
+                'main',
+                'feedback'
             );
         }
     }

@@ -327,54 +327,6 @@ section {
         max-width: 540px;
         margin: 0 auto;
     }
-    
-
-    .table-responsive {
-        overflow-x: hidden; /* Hilangkan scroll horizontal */
-        overflow-y: auto;  
-    }
-
-    .table {
-        width: 100%; /* Memastikan tabel menggunakan lebar penuh */
-        table-layout: auto; /* Menggunakan fixed layout untuk membuat kolom lebih fleksibel */
-    }
-
-    .table th, .table td {
-        padding: 8px; /* Sesuaikan padding untuk mobile */
-        font-size: 12px; /* Mengurangi ukuran font pada layar kecil */
-        text-align: left; /* Text-align kiri agar lebih mudah dibaca di layar kecil */
-        word-wrap: break-word; /* Memaksa teks yang panjang untuk memotong dan turun ke baris berikutnya */
-        white-space: normal; /* Membiarkan teks yang panjang turun ke baris berikutnya */
-        word-break: break-word; /* Memastikan kata yang panjang tetap terpotong jika perlu */
-    }
-
-    .table th {
-        /* padding: 8px; */
-        font-size: 9px; /* Mengurangi ukuran font pada layar kecil */
-        text-align: center; /* Text-align kiri agar lebih mudah dibaca di layar kecil */
-    }
-    .table td a {
-        padding: 8px;
-        font-size: 12px; /* Mengurangi ukuran font pada layar kecil */
-        text-align: center; /* Text-align kiri agar lebih mudah dibaca di layar kecil */
-    }
-
-    /* Mengatur lebar kolom lebih proporsional pada layar kecil */
-    .table th:nth-child(1), .table td:nth-child(1) {
-        width: 13%;
-    }
-    /* .table th:nth-child(2), .table td:nth-child(2) {
-        width: 30%;
-    }
-    .table th:nth-child(3), .table td:nth-child(3) {
-        width: 40%;
-    }
-    .table th:nth-child(4), .table td:nth-child(4) {
-        width: 20%;
-    } */
-    .table th:nth-child(5), .table td:nth-child(5) {
-        width: 5%;
-    }
 }
 
 @media (max-width: 768px) {

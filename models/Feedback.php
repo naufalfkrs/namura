@@ -24,6 +24,15 @@ class Feedback extends Model
         return $events;
     }
 
+    public function getTotalFeedbacks() {
+        // Query untuk menghitung total jumlah pengguna
+        $stmt = $this->dbconn->prepare("SELECT COUNT(*) FROM feedback");
+        $stmt->execute();
+        $stmt->bind_result($totalFeedbacks);
+        $stmt->fetch();
+        return $totalFeedbacks;
+    }
+
     public function getById($id)
     {
         $stmt = $this->dbconn->prepare("SELECT * FROM feedback WHERE feedback_id = ?");
