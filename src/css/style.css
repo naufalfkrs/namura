@@ -1,0 +1,243 @@
+/* BASE STYLES */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fff0f8;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+.container {
+    /* min-height: 100vh; */
+    max-width: 900px;
+    margin: 30px auto;
+    margin-top: 100px;
+    padding: 20px;
+    background-color: rgb(242, 192, 240);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: rgb(195, 106, 186);
+    text-align: center;
+    font-size: 28px;
+}
+
+/* TABLE STYLES */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.table th, .table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #fdca55;
+    color: #333;
+    font-weight: bold;
+}
+
+.table tr:hover {
+    background-color: #fceffb;
+}
+
+/* Kolom Status Teks Hitam */
+.table td[data-label="Status"] {
+    color: #000;
+    font-weight: 500;
+}
+
+/* BUTTON STYLES */
+.btn {
+    padding: 8px 16px;
+    margin-right: 6px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.btn:hover {
+    transform: scale(1.05);
+}
+
+.btn-success {
+    background-color: rgb(195, 106, 186);
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: rgb(180, 90, 170);
+}
+
+.btn-warning {
+    background-color: #fdca55;
+    color: #212529;
+}
+
+.btn-warning:hover {
+    background-color: #e6b045;
+}
+
+.btn-danger {
+    background-color: rgb(195, 106, 186);
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: rgb(165, 80, 160);
+}
+
+.btn-primary {
+    background-color: rgb(195, 106, 186);
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: rgb(160, 80, 150);
+}
+
+.btn-secondary {
+    background-color: #fdca55;
+    color: #212529;
+}
+
+.btn-secondary:hover {
+    background-color: #e6b045;
+}
+
+/* FORM STYLES */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: rgb(195, 106, 186);
+    outline: none;
+    box-shadow: 0 0 5px rgba(195, 106, 186, 0.5);
+}
+
+/* ALERT */
+.alert {
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+/* RESPONSIVE TABLE */
+@media screen and (max-width: 768px) {
+    body {
+        background-color: #fff7fc;
+        font-size: 16px;
+    }
+
+    .container {
+        padding: 20px 16px;
+        margin: 15px;
+        box-shadow: none;
+        border-radius: 10px;
+    }
+
+    h2 {
+        font-size: 24px;
+        line-height: 1.3;
+    }
+
+    .table thead {
+        display: none;
+    }
+
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        background: #fff;
+        margin-bottom: 16px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 12px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .table td {
+        padding: 10px 16px;
+        text-align: left;
+        position: relative;
+        font-size: 15px;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .table td:last-child {
+        border-bottom: none;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        top: 10px;
+        left: 16px;
+        font-weight: bold;
+        color: #6c757d;
+        width: 40%;
+        display: block;
+    }
+
+    .table td {
+        padding-left: 50%;
+    }
+
+    .btn {
+        display: inline-block;
+        width: calc(50% - 8px);
+        margin: 4px 0;
+        text-align: center;
+        font-size: 15px;
+        padding: 10px 0;
+        border-radius: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-control {
+        font-size: 15px;
+        padding: 10px 12px;
+    }
+
+    .alert {
+        font-size: 15px;
+    }
+}
+
