@@ -29,7 +29,6 @@ class DashboardController extends Controller {
             "dashboard/index",
             [
                 'title' => $title,
-                'events' => $this->events,
             ],
             'main'
         );
