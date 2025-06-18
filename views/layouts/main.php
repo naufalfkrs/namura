@@ -14,6 +14,12 @@
                 echo '<link rel="stylesheet" href="src/css/event.css">';
             }
         ?>
+        <?php
+            $controller = $_GET['c'] ?? '';
+            if (in_array($controller, ['committee'])) {
+                echo '<link rel="stylesheet" href="src/css/committee.css">';
+            }
+        ?>
     </head>
     <body>
 
