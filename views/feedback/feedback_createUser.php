@@ -13,13 +13,13 @@
             </div>
         <?php endif; ?>
 
-        <form action="?c=feedback&m=insertFeedback" method="post">
+        <form action="?c=feedback&m=insertFeedbackUser" method="post">
             <div class="mb-3">
                 <label for="event_id" class="form-label">Event</label>
-                <select name="event_id" id="event_id" class="form-control" required>
+                <select name="event_id" class="form-control" required>
                     <option value="">-- Pilih Event --</option>
                     <?php foreach ($events as $event): ?>
-                        <option value="<?= htmlspecialchars($event->event_id) ?>">
+                        <option value="<?= htmlspecialchars($event->event_id) ?>" <?= (htmlspecialchars($selected_event_id == $event->event_id)) ? 'selected' : '' ?>>
                             <?= htmlspecialchars($event->title) ?>
                         </option>
                     <?php endforeach; ?>
