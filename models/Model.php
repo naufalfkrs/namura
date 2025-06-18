@@ -15,4 +15,8 @@ class Model {
             die("Database connection failure");
         }
     }
+
+    public function getDbError() {
+        return $this->dbconn->error;
+    }
 }

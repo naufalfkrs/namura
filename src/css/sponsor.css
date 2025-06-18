@@ -1,0 +1,200 @@
+/* CSS untuk Fitur Manajemen Sponsor */
+
+body {
+    background-color: #f9f7fc;
+}
+
+main .container {
+    padding-top: 120px;
+    padding-bottom: 60px; 
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.container h2 {
+    color: #5c0099;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.container .text-muted {
+    color: #6c757d;
+    margin-bottom: 2rem;
+}
+
+
+/* Styling Tabel */
+.table {
+    border: 1px solid #e0d1eb;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.table thead.table-dark th {
+    background-color: rgb(41, 7, 63);
+    color: #ffffff;
+    border-color: #3e0a5c;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+}
+
+.table tbody th,
+.table tbody td {
+    vertical-align: middle;
+    color: #393E46;
+}
+
+.table tbody tr:hover {
+    background-color: #f2e9f9;
+    cursor: default;
+}
+
+.table img {
+    max-width: 120px;
+    max-height: 60px;
+    object-fit: contain;
+    border-radius: 4px;
+    background-color: #ffffff;
+    padding: 5px;
+    border: 1px solid #e0d1eb;
+}
+
+
+/* Styling Tombol (Button) */
+.btn {
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #5c0099;
+    color: #ffffff;
+}
+.btn-primary:hover {
+    background-color: #4a007a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-info {
+    background-color: #7e57c2;
+    color: #ffffff;
+}
+.btn-info:hover {
+    background-color: #6a44a9;
+}
+
+.btn-secondary {
+    background-color: #e0e0e0;
+    color: #393E46;
+}
+.btn-secondary:hover {
+    background-color: #c7c7c7;
+}
+
+.btn-danger {
+    background-color: #d9534f;
+    color: #ffffff;
+}
+.btn-danger:hover {
+    background-color: #c9302c;
+}
+
+/* Styling Form (Tambah & Edit Sponsor) */
+
+.form-label {
+    color: #393E46;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    padding: 10px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus {
+    border-color: #5c0099;
+    box-shadow: 0 0 0 0.25rem rgba(92, 0, 153, 0.25);
+}
+
+form img {
+    border: 2px dashed #e0d1eb;
+    border-radius: 5px;
+    padding: 10px;
+    max-width: 250px;
+    margin-bottom: 1rem;
+}
+
+/* RESPONSIVE - TAMPILAN MOBILE (Card View) */
+
+@media (max-width: 991px) {
+
+    .table thead {
+        display: none;
+    }
+
+    .table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #e0d1eb;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        padding: 0.8rem;
+    }
+
+    .table tr:last-child {
+        margin-bottom: 0;
+    }
+
+    .table td {
+        display: block;
+        text-align: right;
+        border: none;
+        padding: 8px 0; 
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        display: block; 
+        text-align: left; 
+        font-weight: bold;
+        color: #5c0099;
+        margin-bottom: 4px; 
+        font-size: 13px; 
+    }
+
+    .table td {
+        padding-left: 0; 
+        text-align: left; 
+        font-size: 14px; 
+    }
+
+    .table td[data-label="Aksi"] {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid #f2e9f9;
+    }
+    
+    .table td[data-label="Aksi"]::before {
+        display: none;
+    }
+    
+    .table td[data-label="Aksi"] .btn {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .table td[data-label="Logo"] {
+        text-align: center;
+    }
+    .table td[data-label="Logo"] img {
+        max-width: 150px;
+    }
+}
