@@ -8,6 +8,7 @@
             <?php if($role === "admin" || $role === "superadmin") : ?>
                 <li><a href="?c=dashboard&m=indexAdmin">Home</a></li>
                 <li><a href="?c=user&m=index">Users</a></li>
+                <li><a href="?c=committee&m=index">Committes</a></li>
                 <li><a href="?c=participant&m=index">Participants</a></li>
                 <li><a href="?c=event&m=index">Events</a></li>
                 <li><a href="?c=ticket&m=index">Tickets</a></li>
