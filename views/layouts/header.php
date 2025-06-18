@@ -10,6 +10,7 @@
                 <li><a href="?c=user&m=index">Users</a></li>
                 <li><a href="?c=participant&m=index">Participants</a></li>
                 <li><a href="?c=event&m=index">Events</a></li>
+                <li><a href="?c=ticket&m=index">Tickets</a></li>
                 <li><a href="?c=feedback&m=index">Feedbacks</a></li>
             <?php else : ?>
                 <li><a href="?c=dashboard&m=index">Home</a></li>

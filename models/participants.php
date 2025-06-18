@@ -95,4 +95,40 @@ class Participants extends Model
             return ["isSuccess" => false, "info" => "Error: " . $e->getMessage()];
         }
     }
+
+    public function add($user_id, $event_id, $ticket_id, $status = 'registered') 
+    {
+        $stmt = $this->dbconn->prepare("
+            INSERT INTO participants (user_id, event_id, ticket_id, status) 
+            VALUES (?, ?, ?, ?)
+        ");
+        $stmt->bind_param("iiis", $user_id, $event_id, $ticket_id, $status);
+        return $stmt->execute();
+    }
+
+    //tambahan lagi
+    public function getLastParticipantWithTicket($user_id)
+    {
+        $stmt = $this->dbconn->prepare("
+            SELECT 
+                p.participant_id,
+                u.name as user_name,
+                e.title as event_title,
+                t.ticket_id,
+                t.type as ticket_type,
+                t.price,
+                p.created_at
+            FROM participants p
+            JOIN users u ON p.user_id = u.user_id
+            JOIN events e ON p.event_id = e.event_id
+            JOIN tickets t ON p.ticket_id = t.ticket_id
+            WHERE p.user_id = ?
+            ORDER BY p.created_at DESC
+            LIMIT 1
+        ");
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
 }

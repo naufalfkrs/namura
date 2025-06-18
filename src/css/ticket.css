@@ -1,0 +1,632 @@
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+    margin: 0;
+    padding-top: 100px;
+}
+
+.main {
+    padding-top: 100px; /* Jarak agar tidak tertabrak navbar */
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+/* Header Row */
+.header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.btn-back-inline {
+    background: linear-gradient(45deg, #6c757d, #495057);
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.btn-back-inline:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(108, 117, 125, 0.4);
+}
+
+h2 {
+    color: #a4508b;
+    font-size: 2rem;
+    text-align: center;
+    flex: 1;
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+    min-width: 0;
+}
+
+.management-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+.management-title {
+    color: #6a0dad;
+    font-size: 2rem;
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.05);
+    flex: 1;
+    text-align: center;
+    min-width: 0;
+}
+
+.btn-update,
+.btn-grey {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 25px;
+    border: none;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    white-space: nowrap;
+    font-size: 1rem;
+}
+
+.btn-grey {
+    background: linear-gradient(45deg, #6c757d, #495057);
+}
+
+.btn-update:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4);
+    background: linear-gradient(45deg, #20c997, #28a745);
+}
+
+.btn-grey:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(108, 117, 125, 0.4);
+}
+
+.tambah-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 25px 0 15px 0;
+}
+
+/* Table Styling */
+/* Untuk wrapper table */
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+/* Pastikan table tidak lebih besar dari container */
+.table {
+    width: 100%;
+    min-width: 600px; /* Atur sesuai konten minimal */
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+
+.table thead th {
+    background: #ffd9ff;
+    color: #6a0dad;
+    padding: 15px 10px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.table tbody td {
+    padding: 12px 10px;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    font-size: 0.85rem;
+}
+
+.table tbody tr:hover {
+    background: #faf2f6;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Alerts & Forms */
+.alert-box {
+    padding: 16px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+    border-left: 6px solid;
+}
+
+.alert-success {
+    background-color: #e6f9ed;
+    color: #20734d;
+    border-color: #38c172;
+}
+
+.alert-danger {
+    background-color: #fdecea;
+    color: #c0392b;
+    border-color: #e74c3c;
+}
+
+.alert-warning {
+    background-color: #fff6e5;
+    color: #a76700;
+    border-color: #ffae42;
+}
+
+
+
+.ticket-form-container {
+    background: #fff;
+    padding: 30px;
+    margin: 40px auto;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    max-width: 700px;
+}
+
+.ticket-form-container h2 {
+    color: #7e2b88;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.ticket-form-container label {
+    font-weight: bold;
+    color: #444;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.ticket-form-container select,
+.ticket-form-container input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+
+.ticket-form-container button {
+    background-color: #6a0dad; 
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.ticket-form-container button:hover {
+    background-color: #8b38c6;
+}
+
+/* === ALERT STYLING (Berhasil, Diperbarui, Dihapus) === */
+.alert {
+    padding: 16px 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+    border-left: 6px solid;
+    background-color: #e6f9ed;
+    color: #20734d;
+    border-color: #38c172;
+}
+
+.alert .custom-close,
+.alert .btn-close {
+    background-color: #5c0099;
+    color: white;
+    border-radius: 50%;
+    padding: 4px 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    margin-left: 15px;
+    border: none;
+}
+
+/* === STATUS BADGES === */
+.status-badge {
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: white;
+    display: inline-block;
+    text-align: center;
+}
+
+.status-almost-full {
+    background-color: #dc3545; /* merah */
+}
+
+.status-half-full {
+    background-color: #fd7e14; /* oranye */
+}
+
+.status-available {
+    background-color: #28a745; /* hijau */
+}
+
+.status-empty {
+    background-color: #6c757d; /* abu gelap */
+}
+
+/* === JENIS TIKET BADGE === */
+.ticket-type-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 20px;
+    text-transform: capitalize;
+    color: white;
+}
+
+.ticket-type-badge.regular {
+    background: #7e2b88;
+}
+
+.ticket-type-badge.vip {
+    background: #d63384;
+}
+
+.ticket-type-badge.economy {
+    background: #a6ba85;
+}
+
+/* === TOMBOL Aksi dalam Table === */
+.btn {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    border: none;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+    color: white;
+}
+
+
+.btn-info {
+    background: #17a2b8;
+}
+
+.btn-primary {
+    background: #5c0099;
+}
+
+.btn-danger {
+    background: #dc3545;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+/* === MODAL Detail Tiket === */
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 30px;
+    border-radius: 20px;
+    width: 420px;
+    max-width: 90%;
+    color: #4b0082;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #5c0099;
+    cursor: pointer;
+}
+
+/* === Header tombol tambah tiket === */
+.btn-add-event {
+    background: linear-gradient(45deg, #5c0099, #8b38c6);
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.btn-add-event:hover {
+    opacity: 0.9;
+}
+
+
+/* Responsive Mobile */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
+        border-radius: 15px;
+    }
+
+    /* Header responsif */
+    .header-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .btn-back-inline {
+        order: -1;
+        margin-bottom: 0;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    /* Management header responsif */
+    .management-header {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .management-title {
+        font-size: 1.5rem;
+        order: 1;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .btn-back-management {
+        order: 2;
+        width: auto;
+        min-width: 120px;
+    }
+
+    .btn-add-event {
+        order: 3;
+        width: auto;
+        min-width: 140px;
+    }
+
+    /* Table responsif */
+    .table {
+        font-size: 0.75rem;
+        border-radius: 10px;
+    }
+
+    .table thead th {
+        padding: 8px 4px;
+        font-size: 0.7rem;
+    }
+
+    .table tbody td {
+        padding: 8px 4px;
+        font-size: 0.7rem;
+    }
+
+    /* Action buttons untuk mobile */
+    .action-buttons {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .btn {
+        font-size: 0.7rem;
+        padding: 6px 12px;
+        margin: 1px 0;
+        border-radius: 15px;
+    }
+
+    /* Form responsif */
+    form input, form select, form textarea {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+
+    form label {
+        font-size: 0.9rem;
+    }
+
+    .form-actions {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+
+
+/* ==== Modal Style ==== */
+.modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* default hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: #fff8dc;
+    padding: 24px;
+    border-radius: 16px;
+    width: 420px;
+    max-width: 90%;
+    position: relative;
+    color: #4b0082;
+    font-family: 'Segoe UI', sans-serif;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    text-align: left;
+}
+
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 22px;
+    font-weight: bold;
+    color: #4b0082;
+}
+
+/* Responsive Tablet */
+@media (max-width: 992px) {
+    .container {
+        padding: 20px;
+        margin: 20px;
+    }
+    
+    h2, .management-title {
+        font-size: 1.75rem;
+    }
+    
+    .table thead th,
+    .table tbody td {
+        padding: 10px 8px;
+        font-size: 0.8rem;
+    }
+}
+
+
+
+/* Extra small devices */
+@media (max-width: 480px) {
+    .container {
+        margin: 5px;
+        padding: 10px;
+    }
+
+    h2, .management-title {
+        font-size: 1.25rem;
+    }
+
+    .table {
+        font-size: 0.65rem;
+    }
+
+    .table thead th,
+    .table tbody td {
+        padding: 6px 2px;
+        font-size: 0.65rem;
+    }
+
+    .btn {
+        font-size: 0.65rem;
+        padding: 4px 8px;
+    }
+
+    .btn-add-event {
+        font-size: 0.9rem;
+        padding: 10px 16px;
+    }
+}
+
+/* Table scroll untuk mobile */
+@media (max-width: 768px) {
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .table {
+        min-width: 600px;
+    }
+    .btn {
+        font-size: 0.65rem;
+        padding: 4px 10px;
+        border-radius: 20px;
+    }
+
+    .action-buttons {
+        gap: 2px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-add-event {
+        font-size: 0.75rem;
+        padding: 8px 14px;
+    }
+    .action-buttons .btn {
+        margin: 2px 0;
+        width: auto;
+        min-width: 90px;
+        text-align: center;
+    }
+    .status-badge {
+        font-size: 0.65rem;
+        padding: 4px 10px;
+        border-radius: 20px;
+    }
+
+
+}
+}

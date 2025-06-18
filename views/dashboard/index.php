@@ -22,7 +22,9 @@
 
 <section class="dashboard-events-wrapper">
     <div class="dashboard-events">
-         <h2 class="event-section-title">Daftar Semua Event</h2>
+        <?php if($role !== 'admin' && $role !== 'superadmin') : ?>
+            <h2 class="event-section-title">Daftar Semua Event</h2>
+        <?php endif; ?>
 
         <?php if (!empty($events)) : ?>
             <div class="event-card-grid">
@@ -42,6 +44,8 @@
                     </div>
                 <?php endforeach; ?>
             </div>
+        <?php elseif ($role == 'admin' || $role == 'superadmin') : ?>
+           
         <?php else : ?>
             <p style="text-align:center;">Belum ada event yang tersedia.</p>
         <?php endif; ?>
