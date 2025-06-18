@@ -24,18 +24,67 @@ class FeedbackController extends Controller {
         );
     }
 
+    public function createFeedbackUser() {
+        $title = 'Add Feedback';
+        
+        $event_id = $_GET['event_id'] ?? ''; // dari URL saat klik tombol Add Feedback
+        $events = $this->feedbackModel->getEvent();
+
+        $this->loadView(
+            "feedback/feedback_createUser", [
+                'title' => $title,
+                'events' => $events,
+                'selected_event_id' => $event_id,
+            ],
+            'main',
+            'feedback'
+        );
+    }
+    
+    public function insertFeedbackUser() {
+        $this->check();
+        $title = 'Add Feedback';
+
+        $user_id = $_SESSION['user']['id'] ?? '';
+        $event_id = $_POST['event_id'] ?? '';
+        $rating = $_POST['rating'] ?? '';
+        $comment = $_POST['comment'] ?? '';
+
+        $result = $this->feedbackModel->createFeedback($user_id, $event_id, $rating, $comment);
+
+        if ($result["isSuccess"]) {
+            header("Location:?c=feedback&m=index");
+            exit;
+        } else {
+            $events = $this->feedbackModel->getEvent();
+
+            $this->loadView(
+                "feedback/feedback_create", [
+                    'title' => $title,
+                    'error' => $result['info'],
+                    'events' => $events,
+                    'selected_event_id' => $event_id,
+                ],
+                'main',
+                'feedback'
+            );
+        }
+    }
+
     public function createFeedback() {
         $this->check();
         $result = $this->feedbackModel->getEvent();
 
         $this->loadView(
-            "feedback/feedback_create", [
+            "feedback/feedback_createUser", [
                 'title' => 'Add Feedback',
                 'events' => $result,
             ],
             'main'
         );
     }
+
+
 
     public function insertFeedback() {
         $this->check();

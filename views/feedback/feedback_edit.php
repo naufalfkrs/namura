@@ -1,5 +1,3 @@
-
-
 <div class="d-flex flex-column justify-content-start align-items-center px-3" style="min-height: 100vh; margin-bottom: 50px;">
     <div class="w-100" style="max-width: 650px; margin-top: 50px;">
         <a href="?c=feedback&m=index" class="mt-4 btn btn-outline-warning btn-lg">

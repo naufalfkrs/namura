@@ -40,7 +40,12 @@
                                 <?= nl2br(htmlspecialchars(substr($event['description'], 0, 50))) ?>...
                             </p>
                         <?php endif; ?>
-                        <button class="btn-detail" data-id="<?= $event['event_id'] ?>">Selengkapnya</button>
+                        <div class="d-flex justify-content-center gap-2 w-100">   
+                            <button class="btn btn-warning w-50" data-id="<?= $event['event_id'] ?>">Selengkapnya</button>
+                            <a href="?c=feedback&m=createFeedbackUser&event_id=<?= $event['event_id'] ?>" class="btn btn-primary w-50">
+                                Add Feedback
+                            </a>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             </div>
