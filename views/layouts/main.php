@@ -20,6 +20,12 @@
                 echo '<link rel="stylesheet" href="src/css/committee.css">';
             }
         ?>
+        <?php
+            $controller = $_GET['c'] ?? '';
+            if (in_array($controller, ['sponsor'])) {
+                echo '<link rel="stylesheet" href="src/css/sponsor.css">';
+            }
+        ?>
     </head>
     <body>
 

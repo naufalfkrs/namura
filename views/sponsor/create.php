@@ -1,33 +1,30 @@
-<section class="container">
+<div class="container mt-5">
     <h2>Tambah Sponsor Baru</h2>
+    
+    <p class="text-muted">Untuk Event: <strong><?= htmlspecialchars($event['title']) ?></strong></p>
 
-    <form action="?c=sponsor&m=store" method="POST">
-        <div style="margin-bottom: 15px;">
-            <label for="name">Nama Sponsor</label><br>
-            <input type="text" name="name" id="name" required style="width: 100%;">
+    <form action="?c=sponsor&m=store" method="POST" enctype="multipart/form-data">
+        
+        <input type="hidden" name="event_id" value="<?= $event['event_id'] ?>">
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Nama Sponsor</label>
+            <input type="text" class="form-control" id="name" name="name" required>
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="logo_url">Logo URL</label><br>
-            <input type="url" name="logo_url" id="logo_url" placeholder="https://example.com/logo.png" style="width: 100%;">
+        <div class="mb-3">
+            <label for="logo" class="form-label">Logo Sponsor</label>
+            <input type="file" class="form-control" id="logo" name="logo" accept="image/*">
+            <div class="form-text">Format yang diizinkan: JPG, PNG, GIF.</div>
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="contribution">Kontribusi</label><br>
-            <textarea name="contribution" id="contribution" rows="4" style="width: 100%;"></textarea>
+        <div class="mb-3">
+            <label for="contribution" class="form-label">Bentuk Kontribusi</label>
+            <textarea class="form-control" id="contribution" name="contribution" rows="4"></textarea>
+            <div class="form-text">Jelaskan bentuk kontribusi dari sponsor, misal: 'Dana tunai Rp 10.000.000', 'Penyediaan konsumsi', dll.</div>
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="event_id">Event</label><br>
-            <select name="event_id" id="event_id" required style="width: 100%;">
-                <option value="">-- Pilih Event --</option>
-                <?php foreach ($events as $event): ?>
-                    <option value="<?= $event['event_id'] ?>"><?= htmlspecialchars($event['name']) ?></option>
-                <?php endforeach; ?>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="?c=sponsor&m=index" class="btn btn-secondary">Batal</a>
+        <a href="?c=sponsor&m=manage&event_id=<?= $event['event_id'] ?>" class="btn btn-secondary">Batal</a>
+        <button type="submit" class="btn btn-primary">Simpan Sponsor</button>
     </form>
-</section>
+</div>
